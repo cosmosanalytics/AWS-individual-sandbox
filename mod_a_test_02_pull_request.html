@@ -520,6 +520,35 @@
       color: #38BDF8;
       border: 1px solid rgba(56,189,248,0.4);
     }
+    /* STRICT NON-OWNER LOCKOUT RULES */
+    body.sandbox-locked main button:not(#btnUnlockOwner),
+    body.sandbox-locked main input,
+    body.sandbox-locked main select,
+    body.sandbox-locked main textarea,
+    body.sandbox-locked #heroRunBtn {
+      pointer-events: none !important;
+      opacity: 0.3 !important;
+      filter: grayscale(100%) !important;
+      cursor: not-allowed !important;
+    }
+    .locked-security-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(185, 28, 28, 0.12));
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #FECACA;
+      font-size: 12.5px;
+    }
+    .locked-security-banner strong {
+      color: #F87171;
+      font-size: 13.5px;
+      display: block;
+      margin-bottom: 3px;
+    }
   </style>
 </head>
 <body>
@@ -545,7 +574,7 @@
       <span class="status-dot" id="statusDot">🔒</span>
       <span id="passcodeStatusText">Owner Passcode (Public Sandbox Lock):</span>
     </div>
-    <span id="modeStatusBadge" style="font-size:10.5px; font-weight:800; color:var(--accent-amber); margin: 0 4px;">🔒 NON-OWNER: SIMULATED ($0)</span>
+    <span id="modeStatusBadge" style="font-size:10.5px; font-weight:800; color:#F43F5E; margin: 0 4px;">🔒 LOCKED: OWNER PASSCODE REQUIRED</span>
     <input type="password" id="ownerPasscodeInput" class="passcode-input" placeholder="Enter Owner Passcode to unlock live AWS us-east-2..." onkeydown="if(event.key==='Enter') unlockOwnerMode()">
     <button class="btn btn-amber" id="btnUnlockOwner" onclick="unlockOwnerMode()">🔑 Unlock Live AWS</button>
     <button class="btn btn-outline" id="btnLockOwner" onclick="lockOwnerMode()" style="display:none;">🔒 Lock Sandbox</button>
@@ -562,7 +591,7 @@
       <div class="test-hero-desc">Initiate an isolated sandbox branch and review diff without touching production branches.</div>
     </div>
     <div style="display:flex; gap:8px;">
-      <button class="btn btn-blue" onclick="runTest(2)">▶️ Run This Test</button>
+      <button class="btn btn-blue" id="heroRunBtn" onclick="runTest(2)">▶️ Run This Test</button>
     </div>
   </div>
 
@@ -580,6 +609,15 @@
 
   <!-- 5. MAIN CONTENT: TEST CARD & CONTROLS -->
   <main style="padding: 12px 18px;">
+    <!-- NON-OWNER HARD LOCK BARRIER (Visible when locked) -->
+    <div id="lockSecurityBanner" class="locked-security-banner">
+      <span style="font-size:28px;">🔒</span>
+      <div>
+        <strong>NON-OWNER ACCESS RESTRICTED • ALL ACTIONS DISABLED</strong>
+        Non-owners cannot execute tests, send AWS triggers, or run cloud workflows in this repository. Please enter your Owner Passcode in the top bar to unlock live execution for AWS us-east-2 (Project <em>For Each and Every</em>).
+      </div>
+    </div>
+
     <div class="test-card active-tab" id="tc2">
 <div class="tc-top">
 <span>🛡️ Test 2: Pull Request (Initiate Branch &amp; Review Diff)</span>
@@ -1995,16 +2033,121 @@
     appendLog("Ready. Click any of the 14 Test buttons across Modules A, B, C, D, E or 'Run All 14 Tests End-to-End'.");
   
 
+    // OVERRIDE: Sync Owner UI and strictly lock out non-owners
+    function syncOwnerUi() {
+      const isUnlocked = Boolean(ownerPasscode);
+      document.body.classList.toggle("sandbox-locked", !isUnlocked);
+      document.body.classList.toggle("sandbox-unlocked", isUnlocked);
+
+      const banner = document.getElementById("lockSecurityBanner");
+      if (banner) banner.style.display = isUnlocked ? "none" : "flex";
+
+      const bar = document.getElementById("passcodeBar");
+      const badge = document.getElementById("modeStatusBadge");
+      const inp = document.getElementById("ownerPasscodeInput");
+      const btnUn = document.getElementById("btnUnlockOwner");
+      const btnLk = document.getElementById("btnLockOwner");
+      const dot = document.getElementById("statusDot");
+      const txt = document.getElementById("passcodeStatusText");
+      const heroBtn = document.getElementById("heroRunBtn");
+
+      if (bar) bar.classList.toggle("unlocked", isUnlocked);
+      if (dot) dot.textContent = isUnlocked ? "🟢" : "🔒";
+      if (txt) txt.textContent = isUnlocked ? "Owner Authenticated (AWS us-east-2 Active):" : "Owner Authentication (Locked):";
+
+      if (badge) {
+        badge.textContent = isUnlocked ? "🟢 OWNER UNLOCKED: LIVE AWS (us-east-2)" : "🔒 LOCKED: OWNER PASSCODE REQUIRED";
+        badge.style.color = isUnlocked ? "var(--accent-green)" : "#F43F5E";
+      }
+
+      if (inp) {
+        inp.style.display = isUnlocked ? "none" : "inline-block";
+        inp.value = isUnlocked ? "••••••••" : "";
+      }
+      if (btnUn) btnUn.style.display = isUnlocked ? "none" : "inline-flex";
+      if (btnLk) btnLk.style.display = isUnlocked ? "inline-flex" : "none";
+      if (heroBtn) {
+        if (!isUnlocked) {
+          heroBtn.setAttribute("disabled", "true");
+          heroBtn.style.opacity = "0.35";
+          heroBtn.style.cursor = "not-allowed";
+        } else {
+          heroBtn.removeAttribute("disabled");
+          heroBtn.style.opacity = "1";
+          heroBtn.style.cursor = "pointer";
+        }
+      }
+    }
+
+    // STRICT OWNER CHECK: Non-owners cannot do anything
+    function checkOwnerPermission() {
+      if (!ownerPasscode) {
+        alert("🔒 ACCESS DENIED: Owner Passcode required. Non-owners cannot execute any actions in this sandbox.");
+        appendLog("⛔ [DENIED] Non-owner execution attempt blocked. Enter Owner Passcode to unlock.");
+        const inp = document.getElementById("ownerPasscodeInput");
+        if (inp) {
+          inp.focus();
+          inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return false;
+      }
+      return true;
+    }
+
+    // Intercept test execution - block non-owners completely
+    const _origRunTest = window.runTest;
+    window.runTest = async function(idx, s3SubAction) {
+      if (!checkOwnerPermission()) return;
+      return _origRunTest(idx, s3SubAction);
+    };
+
+    if (window.runS3Upload) {
+      const _origS3Up = window.runS3Upload;
+      window.runS3Upload = async function() {
+        if (!checkOwnerPermission()) return;
+        return _origS3Up();
+      };
+    }
+    if (window.runS3Download) {
+      const _origS3Down = window.runS3Download;
+      window.runS3Download = async function() {
+        if (!checkOwnerPermission()) return;
+        return _origS3Down();
+      };
+    }
+    if (window.askAiToExplainCurrentTest) {
+      const _origAi = window.askAiToExplainCurrentTest;
+      window.askAiToExplainCurrentTest = async function() {
+        if (!checkOwnerPermission()) return;
+        return _origAi();
+      };
+    }
+    if (window.runCurrentTabTest) {
+      const _origCurr = window.runCurrentTabTest;
+      window.runCurrentTabTest = function() {
+        if (!checkOwnerPermission()) return;
+        return _origCurr();
+      };
+    }
+
+    window.lockOwnerMode = () => {
+      ownerPasscode = "";
+      sessionStorage.removeItem("cosmos_aws_passcode");
+      syncOwnerUi();
+      appendLog("[LOCKED] 🔒 Sandbox locked. Non-owner execution disabled.");
+    };
+
     window.addEventListener("DOMContentLoaded", () => {
       if (typeof window.switchTestTab === "function") {
         window.switchTestTab(2);
       }
       syncOwnerUi();
-      appendLog(`[SANDBOX READY] Loaded Test #02: Test 2: Pull Request Gate.`);
       if (ownerPasscode) {
-        appendLog(`[AUTH] Owner Live Mode Active (Session Passcode Loaded). Connected to AWS us-east-2.`);
+        appendLog(`[AUTH] 🟢 Owner Authenticated. Connected to AWS us-east-2 (Project For Each and Every).`);
+        appendLog(`[READY] Loaded Test #02: Test 2: Pull Request Gate. Ready for live execution.`);
       } else {
-        appendLog(`[MODE] Non-Owner Simulated Mode Active ($0.00 AWS cost). Enter Owner Passcode to unlock Real GitHub + Real AWS.`);
+        appendLog(`[SECURITY] 🔒 Non-owner execution is blocked. This public sandbox requires Owner Authentication.`);
+        appendLog(`[ACTION REQUIRED] Enter Owner Passcode in the top bar to unlock live execution.`);
       }
     });
   </script>

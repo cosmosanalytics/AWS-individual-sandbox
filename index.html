@@ -569,6 +569,7 @@
       <span class="status-dot" id="statusDot">🔒</span>
       <span id="passcodeStatusText">Owner Passcode (Public Sandbox Lock):</span>
     </div>
+    <span id="modeStatusBadge" style="font-size:10.5px; font-weight:800; color:#F43F5E; margin: 0 4px;">🔒 LOCKED: OWNER PASSCODE REQUIRED</span>
     <input type="password" id="ownerPasscodeInput" class="passcode-input" placeholder="Enter Owner Passcode to unlock live AWS us-east-2 across all 14 test apps..." onkeydown="if(event.key==='Enter') unlockOwnerMode()">
     <button class="btn btn-amber" id="btnUnlockOwner" onclick="unlockOwnerMode()">🔑 Unlock Live AWS</button>
   </div>
@@ -578,6 +579,23 @@
     <div class="hub-title">⚡ AWS Individual Sandbox • End-to-End AI CI/CD Hub</div>
     <div class="hub-subtitle">
       14 individual standalone test applications covering Git / PR automation, 4 GitHub CI Action jobs, the 3-way GitHub ⟷ AWS bridge, multi-engine AI dispatch, and AWS cloud storage in <strong>us-east-2</strong> (Project <em>For Each and Every</em>).
+    </div>
+
+    <!-- NON-OWNER HARD LOCK NOTICE -->
+    <div id="hubLockBanner" class="locked-security-banner" style="max-width: 850px; margin: 16px auto 0 auto; background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(185, 28, 28, 0.12)); border: 1px solid rgba(239, 68, 68, 0.45); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; color: #FECACA; font-size: 12.5px; text-align: left;">
+      <span style="font-size: 26px;">🔒</span>
+      <div>
+        <strong style="color: #F87171; font-size: 13.5px; display: block; margin-bottom: 3px;">NON-OWNER ACCESS RESTRICTED • EXECUTION DISABLED</strong>
+        Non-owners cannot execute any test applications in this sandbox. Please enter your Owner Passcode in the top bar to unlock live execution against AWS us-east-2 (Project <em>For Each and Every</em>).
+      </div>
+    </div>
+
+    <div id="hubUnlockBanner" style="display:none; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 8px; padding: 14px 18px; max-width: 850px; margin: 16px auto 0 auto; color: #A7F3D0; font-size: 12.5px; align-items: center; gap: 14px; text-align: left;">
+      <span style="font-size: 26px;">🟢</span>
+      <div>
+        <strong style="color: #6EE7B7; font-size: 13.5px; display: block; margin-bottom: 3px;">OWNER LIVE MODE ACTIVE</strong>
+        Authenticated to AWS Project <em>For Each and Every</em> (us-east-2). All 14 applications are unlocked for live execution.
+      </div>
     </div>
 
     <!-- MODULE FILTER PILLS -->
@@ -606,7 +624,7 @@
         <div class="tic-desc">Push any file & content straight into cosmosanalytics/AWS (main & gh-pages) via AWS Lambda.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>LAMBDA</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>SSH</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>GIT PUSH</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_a_test_01_git_push.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_a_test_01_git_push.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -624,7 +642,7 @@
         <div class="tic-desc">Initiate an isolated sandbox branch and review diff without touching production branches.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>PR GATE</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>DIFF</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>SANDBOX BRANCH</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_a_test_02_pull_request.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_a_test_02_pull_request.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -642,7 +660,7 @@
         <div class="tic-desc">Audit AST syntax tree for target model & hierarchy tier integrity via Bedrock/Local engine.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>ACTIONS</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>AST</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>CODE REVIEW</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_b_test_03_ast_review.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_b_test_03_ast_review.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -660,7 +678,7 @@
         <div class="tic-desc">Scan repository for leaked AWS keys & verify passcode gate header with zero secret leakage.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>DEVSECOPS</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>ZERO LEAK</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>REGEX SHIELD</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_b_test_04_secret_shield.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_b_test_04_secret_shield.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -678,7 +696,7 @@
         <div class="tic-desc">Run deterministic assertion suite against system nodes and policy invariants.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>CI MATRIX</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>48/48 PASS</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>INVARIANTS</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_b_test_05_ci_matrix.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_b_test_05_ci_matrix.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -696,7 +714,7 @@
         <div class="tic-desc">Probe AWS Lambda Function URL to prove unauthenticated callers get blocked (HTTP 401).</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>HTTP 401</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>AUTH GATE</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>SIGV4</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_b_test_06_aws_401_preflight.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_b_test_06_aws_401_preflight.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -714,7 +732,7 @@
         <div class="tic-desc">Send trigger payload from GitHub Pages to AWS Lambda in us-east-2.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>FORWARD PUSH</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>LAMBDA INGRESS</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>PAYLOAD</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_c_test_07_github_to_aws_push.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_c_test_07_github_to_aws_push.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -732,7 +750,7 @@
         <div class="tic-desc">AWS Lambda calls GitHub REST API to pull live commit and run telemetry.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>TELEMETRY PULL</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>REST API</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>COMMIT SHA</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_c_test_08_github_to_aws_pull.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_c_test_08_github_to_aws_pull.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -750,7 +768,7 @@
         <div class="tic-desc">AWS executes Bedrock + Step Functions + S3 and returns signed receipt.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>RECEIPT RETURN</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>STEP FUNCTIONS</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>BEDROCK</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_c_test_09_aws_to_github_return.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_c_test_09_aws_to_github_return.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -768,7 +786,7 @@
         <div class="tic-desc">Test authorization gate with simulated passcode vs real owner passcode.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>COST SHIELD</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>PASSCODE GATE</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>PROTECTION</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_d_test_10_cost_shield.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_d_test_10_cost_shield.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -786,7 +804,7 @@
         <div class="tic-desc">Dispatch custom prompt across selected AI engine (Local WebGPU / Groq / Bedrock).</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>MULTI-ENGINE</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>WEBGPU</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>GROQ LPU</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>BEDROCK</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_d_test_11_multi_engine_ai.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_d_test_11_multi_engine_ai.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -804,7 +822,7 @@
         <div class="tic-desc">Upload or download files directly to/from Amazon S3 bucket in us-east-2.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>AMAZON S3</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>PUT OBJECT</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>GET OBJECT</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>KMS</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_e_test_12_amazon_s3.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_e_test_12_amazon_s3.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -822,7 +840,7 @@
         <div class="tic-desc">Execute semantic similarity search across knowledge embeddings (Cosine, Dot, Euclidean).</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>VECTOR RAG</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>COSINE SIM</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>EMBEDDINGS</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_e_test_13_vector_db.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_e_test_13_vector_db.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -840,7 +858,7 @@
         <div class="tic-desc">Query entities, multi-hop relationships, and graph topology with Cypher syntax.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>GRAPH DB</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>CYPHER</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>MULTI-HOP</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>TOPOLOGY</span></div>
         <div style="margin-top:auto; padding-top:10px;">
-          <a href="mod_e_test_14_knowledge_graph.html" class="btn btn-blue" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
+          <a href="mod_e_test_14_knowledge_graph.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
             ▶️ Launch Test App ➔
           </a>
         </div>
@@ -863,12 +881,24 @@
       const txt = document.getElementById("passcodeStatusText");
       const inp = document.getElementById("ownerPasscodeInput");
       const btn = document.getElementById("btnUnlockOwner");
+      const badge = document.getElementById("modeStatusBadge");
+      const lockBanner = document.getElementById("hubLockBanner");
+      const unlockBanner = document.getElementById("hubUnlockBanner");
 
       if (bar) bar.classList.toggle("unlocked", isUnlocked);
       if (dot) dot.textContent = isUnlocked ? "🟢" : "🔒";
       if (txt) txt.textContent = isUnlocked 
-        ? "Owner Live Mode Unlocked (AWS us-east-2 + GitHub Active for all apps):" 
-        : "Owner Passcode (Public Sandbox Lock):";
+        ? "Owner Live Mode (AWS us-east-2 Active):" 
+        : "Owner Authentication (Locked):";
+
+      if (badge) {
+        badge.textContent = isUnlocked ? "🟢 OWNER UNLOCKED: LIVE AWS us-east-2" : "🔒 LOCKED: OWNER PASSCODE REQUIRED";
+        badge.style.color = isUnlocked ? "var(--accent-green)" : "#F43F5E";
+      }
+
+      if (lockBanner) lockBanner.style.display = isUnlocked ? "none" : "flex";
+      if (unlockBanner) unlockBanner.style.display = isUnlocked ? "flex" : "none";
+
       if (inp) {
         inp.value = isUnlocked ? "••••••••" : "";
         inp.disabled = isUnlocked;
@@ -877,6 +907,20 @@
         btn.textContent = isUnlocked ? "🔒 Lock Mode" : "🔑 Unlock Live AWS";
         btn.className = isUnlocked ? "btn btn-outline" : "btn btn-amber";
       }
+
+      const launchBtns = document.querySelectorAll(".launch-btn");
+      launchBtns.forEach(lb => {
+        lb.textContent = isUnlocked ? "▶️ Launch Live Test App ➔" : "🔒 Launch (Owner Passcode Required)";
+        if (!isUnlocked) {
+          lb.style.background = "#1E293B";
+          lb.style.borderColor = "#334155";
+          lb.style.color = "#94A3B8";
+        } else {
+          lb.style.background = "";
+          lb.style.borderColor = "";
+          lb.style.color = "";
+        }
+      });
     }
 
     window.unlockOwnerMode = async () => {
@@ -885,7 +929,7 @@
         ownerPasscode = "";
         sessionStorage.removeItem("cosmos_aws_passcode");
         syncOwnerUi();
-        alert("Owner mode locked. Sandbox reverted to simulated demo mode ($0 cost).");
+        alert("🔒 Sandbox locked. Non-owner execution is blocked.");
         return;
       }
       const val = inp?.value.trim();

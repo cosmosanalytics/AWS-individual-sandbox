@@ -9,8 +9,8 @@ Live GitHub Pages Hub: [https://cosmosanalytics.github.io/AWS-individual-sandbox
 ## 🔒 Owner Unlock & Public Security Gate
 
 Because this repository is public, **every individual test app and the index hub are protected by the Owner Unlock Gate**:
-- **Locked / Public Visitor Mode ($0 AWS Cost)**: Visitors can test the interface, inspect payload schemas, and view realistic simulated test receipts.
-- **Unlocked / Owner Live Mode**: Enter your Owner Passcode in the top bar. Unlocking in one test or on the hub automatically unlocks all 14 test apps across the browser session (`sessionStorage`), authorizing live SigV4 execution on **AWS us-east-2** (Project *For Each and Every*, `966273137102`) and real commits on `cosmosanalytics/AWS`.
+- **Locked / Non-Owner Mode**: Non-owners cannot execute actions or trigger cloud workloads. All test buttons and execution triggers are strictly disabled and blocked until the Owner Passcode is entered.
+- **Unlocked / Owner Live Mode**: Enter your Owner Passcode in the top bar. Unlocking in one test or on the hub automatically unlocks all 14 test apps across the browser session (`sessionStorage`), authorizing live execution on **AWS us-east-2** (Project *For Each and Every*, `966273137102`) and real commits on GitHub.
 
 ---
 
