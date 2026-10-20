@@ -10,7 +10,7 @@ Live GitHub Pages Hub: [https://cosmosanalytics.github.io/AWS-individual-sandbox
 
 Because this repository is public, **every individual test app and the index hub are protected by the Owner Unlock Gate**:
 - **Locked / Non-Owner Mode**: Non-owners cannot execute actions or trigger cloud workloads. All test buttons and execution triggers are strictly disabled and blocked until the Owner Passcode is entered.
-- **Unlocked / Owner Live Mode**: Enter your Owner Passcode in the top bar. Unlocking in one test or on the hub automatically unlocks all 14 test apps across the browser session (`sessionStorage`), authorizing live execution on **AWS us-east-2** (Project *For Each and Every*, `966273137102`) and real commits on GitHub.
+- **Unlocked / Owner Live Mode**: Enter your Owner Passcode in the top bar. Unlocking in one test or on the hub automatically unlocks all 14 test apps across the browser session (`sessionStorage`), authorizing live execution on **AWS us-east-2** (Project *For Each and Every*) and real commits on GitHub.
 
 ---
 
@@ -32,7 +32,7 @@ Because this repository is public, **every individual test app and the index hub
 - **Test 09**: [`mod_c_test_09_aws_to_github_return.html`](mod_c_test_09_aws_to_github_return.html) — Connection ③ (AWS ➔ GitHub Step Functions & Bedrock Return Channel)
 
 ### Module D: Shield & Multi-Engine AI Dispatch
-- **Test 10**: [`mod_d_test_10_cost_shield.html`](mod_d_test_10_cost_shield.html) — Dual-Mode Cost Shield ($0 Demo vs Live AWS Execution Gate)
+- **Test 10**: [`mod_d_test_10_cost_shield.html`](mod_d_test_10_cost_shield.html) — Owner Cost Gate (AWS us-east-2 Authorization Gate)
 - **Test 11**: [`mod_d_test_11_multi_engine_ai.html`](mod_d_test_11_multi_engine_ai.html) — Multi-Engine AI Dispatch (WebGPU / Groq LPU / Bedrock Claude Sonnet 4.6)
 
 ### Module E: Cloud State, Storage & Graph
@@ -46,5 +46,5 @@ Because this repository is public, **every individual test app and the index hub
 - **Lambda Function URL**: `https://rzif6dkmsvpk7xczl3ekzksepe0uyejl.lambda-url.us-east-2.on.aws/`
 - **Step Functions State Machine**: `cosmos-cicd-ai-pipeline-sfn`
 - **Amazon Bedrock**: Live Claude Sonnet 4.6 (`us.anthropic.claude-sonnet-4-6`)
-- **Amazon S3 Store**: `s3://cosmos-ai-factory-cicd-966273137102/deployments/`
-- **Project**: For Each and Every (`966273137102`)
+- **Amazon S3 Store**: `s3://cosmos-ai-factory-cicd-artifacts/deployments/`
+- **Project**: For Each and Every (Region: us-east-2)
