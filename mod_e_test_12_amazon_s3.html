@@ -464,17 +464,17 @@
   }
 
 
-    /* HIGH-CONTRAST DARK THEME & READABILITY ENHANCEMENTS */
+    /* HIGH-CONTRAST LIGHT THEME & READABILITY ENHANCEMENTS */
     body {
-      background: #0B0F19;
-      color: #F8FAFC;
+      background: #F8FAFC;
+      color: #0F172A;
       margin: 0;
       padding: 0;
       font-family: var(--font-sans);
     }
     .sandbox-top-nav {
-      background: #0D1322;
-      border-bottom: 1px solid #1E293B;
+      background: #FFFFFF;
+      border-bottom: 1.5px solid #E2E8F0;
       padding: 10px 18px;
       display: flex;
       justify-content: space-between;
@@ -482,6 +482,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
     }
     .nav-brand {
       display: flex;
@@ -489,7 +490,10 @@
       gap: 10px;
       font-size: 13px;
       font-weight: 700;
-      color: #F8FAFC;
+      color: #0F172A;
+    }
+    .nav-brand a {
+      color: #0F172A !important;
     }
     .nav-links-group {
       display: flex;
@@ -497,8 +501,8 @@
       gap: 8px;
     }
     .test-hero-banner {
-      background: linear-gradient(135deg, rgba(2,132,199,0.12), rgba(124,58,237,0.12));
-      border-bottom: 1px solid #1E293B;
+      background: linear-gradient(135deg, #F0F9FF 0%, #EEF2FF 100%);
+      border-bottom: 1.5px solid #BAE6FD;
       padding: 14px 18px;
       display: flex;
       justify-content: space-between;
@@ -509,14 +513,14 @@
     .test-hero-title {
       font-size: 15px;
       font-weight: 800;
-      color: #F8FAFC;
+      color: #0F172A;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .test-hero-desc {
       font-size: 11.5px;
-      color: #CBD5E1;
+      color: #334155;
       margin-top: 3px;
     }
     .mod-tag-pill {
@@ -525,40 +529,40 @@
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 4px;
-      background: rgba(2,132,199,0.2);
-      color: #38BDF8;
-      border: 1px solid rgba(56,189,248,0.4);
+      background: #E0F2FE;
+      color: #0369A1;
+      border: 1px solid #7DD3FC;
     }
 
-    /* CRISP HIGH-CONTRAST TEST CARD */
+    /* CRISP HIGH-CONTRAST LIGHT TEST CARD */
     .test-card {
-      background: #0F172A !important;
-      color: #F8FAFC !important;
-      border: 1.5px solid #334155 !important;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1.5px solid #CBD5E1 !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
       border-radius: 8px !important;
       padding: 14px 16px !important;
     }
     .tc-top {
-      color: #F8FAFC !important;
+      color: #0F172A !important;
       font-size: 13.5px !important;
       font-weight: 800 !important;
     }
     .tc-desc {
-      color: #CBD5E1 !important;
+      color: #334155 !important;
       font-size: 11px !important;
       line-height: 1.4 !important;
     }
     .io-block {
-      background: #0B0F19 !important;
-      border: 1px solid #1E293B !important;
-      color: #E2E8F0 !important;
+      background: #F8FAFC !important;
+      border: 1.5px solid #CBD5E1 !important;
+      color: #0F172A !important;
       padding: 8px 12px !important;
       border-radius: 6px !important;
       margin: 8px 0 !important;
     }
     .io-row {
-      color: #CBD5E1 !important;
+      color: #334155 !important;
       font-size: 11px !important;
       line-height: 1.6 !important;
       display: flex !important;
@@ -566,45 +570,56 @@
       align-items: center !important;
     }
     .io-row span {
-      color: #E2E8F0 !important;
+      color: #0F172A !important;
     }
     .io-row code {
-      color: #38BDF8 !important;
-      background: rgba(56, 189, 248, 0.12) !important;
+      color: #0369A1 !important;
+      background: #E0F2FE !important;
       padding: 1px 5px !important;
       border-radius: 3px !important;
       font-weight: 700 !important;
+      border: 1px solid #BAE6FD !important;
     }
     .io-badge.in {
       background: #0284C7 !important;
       color: #FFFFFF !important;
-      border: 1px solid #38BDF8 !important;
+      border: 1px solid #0284C7 !important;
       font-weight: 800 !important;
     }
     .io-badge.proc {
       background: #7C3AED !important;
       color: #FFFFFF !important;
-      border: 1px solid #A78BFA !important;
+      border: 1px solid #7C3AED !important;
       font-weight: 800 !important;
     }
     .io-badge.out {
       background: #059669 !important;
       color: #FFFFFF !important;
-      border: 1px solid #34D399 !important;
+      border: 1px solid #059669 !important;
       font-weight: 800 !important;
     }
     input[type="text"], input[type="password"], select, textarea {
-      background: #0F172A !important;
-      color: #F8FAFC !important;
-      border: 1px solid #334155 !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1.5px solid #94A3B8 !important;
       border-radius: 4px !important;
     }
+    .btn-outline {
+      background: #FFFFFF !important;
+      border: 1.5px solid #CBD5E1 !important;
+      color: #0F172A !important;
+      font-weight: 600 !important;
+    }
+    .btn-outline:hover {
+      background: #F1F5F9 !important;
+      border-color: #94A3B8 !important;
+    }
     .tc-result {
-      background: #0B0F19 !important;
-      border: 1px solid #1E293B !important;
+      background: #F8FAFC !important;
+      border: 1.5px solid #CBD5E1 !important;
       border-radius: 6px !important;
       padding: 10px 12px !important;
-      color: #94A3B8 !important;
+      color: #0F172A !important;
       margin-top: 6px !important;
     }
 
@@ -615,12 +630,12 @@
     body.sandbox-locked main textarea,
     body.sandbox-locked #heroRunBtn {
       pointer-events: none !important;
-      opacity: 0.3 !important;
+      opacity: 0.35 !important;
       filter: grayscale(100%) !important;
       cursor: not-allowed !important;
     }
     .locked-security-banner {
-      background: #1C1014;
+      background: #FEF2F2;
       border: 1.5px solid #EF4444;
       border-radius: 8px;
       padding: 14px 18px;
@@ -628,12 +643,12 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      color: #FFFFFF;
+      color: #991B1B;
       font-size: 13px;
-      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.15);
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.08);
     }
     .locked-security-banner strong {
-      color: #FF6B6B;
+      color: #DC2626;
       font-size: 14px;
       font-weight: 800;
       display: block;
@@ -646,19 +661,20 @@
       max-width: 860px;
       margin: 0 auto;
       background: #FFFFFF;
-      border: 1px solid #334155;
+      border: 1.5px solid #CBD5E1;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
     }
     .bridge-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0D1322;
-      border-bottom: 1px solid #1E293B;
+      background: #F1F5F9;
+      border-bottom: 1px solid #CBD5E1;
       padding: 6px 12px;
       font-size: 11px;
+      color: #334155;
     }
     #bridgeCanvas {
       width: 100%;
@@ -687,7 +703,7 @@
   </header>
 
   <!-- 2. OWNER SECURITY & UNLOCK STATUS BAR -->
-  <div class="passcode-bar" id="passcodeBar" style="padding: 6px 18px; font-size: 11px; background: #0D1322; border-bottom: 1px solid #1E293B; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+  <div class="passcode-bar" id="passcodeBar" style="padding: 6px 18px; font-size: 11px; background: #FFFFFF; border-bottom: 1.5px solid #E2E8F0; color: #334155; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
     <div style="display:flex; align-items:center; gap:8px;">
       <span id="statusDot">🔒</span>
       <span style="color:var(--text-muted);" id="passcodeStatusText">Owner Authentication:</span>
@@ -720,7 +736,7 @@
       <div class="bridge-header">
         <span id="activeFlowLabel">FLOW CANVAS • TEST #12</span>
         <span id="hudCenter" style="color:var(--text-muted); font-size:10px;">Ready</span>
-        <span style="font-family:var(--font-mono); font-size:9.5px; color:#38BDF8;">AWS us-east-2 (Project: For Each and Every)</span>
+        <span style="font-family:var(--font-mono); font-size:9.5px; color:#0284C7;">AWS us-east-2 (Project: For Each and Every)</span>
       </div>
       <canvas id="bridgeCanvas" width="760" height="255"></canvas>
     </div>
@@ -745,7 +761,7 @@
 <button class="btn btn-green" onclick="runS3Download()" style="padding:2px 8px; font-size:10px;">⬇️ Download</button>
 </div>
 </div>
-<div class="tc-desc">Upload or download files directly to/from Amazon S3 (<code>us-east-2</code>):</div><div style="margin:6px 0 2px 0; display:flex; gap:6px; align-items:center; flex-wrap:wrap;"><span style="font-size:10px; color:#94A3B8; font-weight:700;">PDF S3 Operations:</span><button class="btn btn-outline btn-sm" onclick="runTest(12, 'upload')" style="font-size:10px; padding:2px 8px;" type="button">📤 1. Upload (74B, SHA-256 &amp; MD5 ETag)</button><button class="btn btn-outline btn-sm" onclick="perturbS3Payload()" style="font-size:10px; padding:2px 8px;" type="button">💡 Perturb 1 Char (Live Checksum Change)</button><button class="btn btn-outline btn-sm" onclick="runTest(12, 'download')" style="font-size:10px; padding:2px 8px;" type="button">📥 2. Download &amp; Checksum Match</button></div>
+<div class="tc-desc">Upload or download files directly to/from Amazon S3 (<code>us-east-2</code>):</div><div style="margin:6px 0 2px 0; display:flex; gap:6px; align-items:center; flex-wrap:wrap;"><span style="font-size:10px; color:#475569; font-weight:700;">PDF S3 Operations:</span><button class="btn btn-outline btn-sm" onclick="runTest(12, 'upload')" style="font-size:10px; padding:2px 8px;" type="button">📤 1. Upload (74B, SHA-256 &amp; MD5 ETag)</button><button class="btn btn-outline btn-sm" onclick="perturbS3Payload()" style="font-size:10px; padding:2px 8px;" type="button">💡 Perturb 1 Char (Live Checksum Change)</button><button class="btn btn-outline btn-sm" onclick="runTest(12, 'download')" style="font-size:10px; padding:2px 8px;" type="button">📥 2. Download &amp; Checksum Match</button></div>
 <div style="display:flex; gap:6px; flex-wrap:wrap; margin:2px 0;">
 <input id="s3KeyInput" list="s3KeysDatalist" placeholder="S3 Key (e.g. uploads/my-file.txt)" style="flex:1; min-width:130px; font-size:10px; padding:4px 6px;" type="text" value="deployments/test-artifact.json"/>
 <input id="s3BucketInput" placeholder="S3 Bucket" style="width:130px; font-size:10px; padding:4px 6px;" type="text" value="cosmos-ai-factory-cicd-********7102"/>
@@ -787,7 +803,7 @@
           <button class="btn btn-outline btn-sm" onclick="clearLogs()">Clear Logs</button>
         </div>
       </div>
-      <div class="log-console" id="testConsoleLog" style="max-height: 280px; overflow-y: auto; background: #0A0F1D; border: 1px solid #1E293B; border-radius: 6px; padding: 10px; font-family: var(--font-mono); font-size: 11.5px; color: #38BDF8; white-space: pre-wrap; line-height: 1.45;"></div>
+      <div class="log-console" id="testConsoleLog" style="max-height: 280px; overflow-y: auto; background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: 6px; padding: 10px; font-family: var(--font-mono); font-size: 11.5px; color: #0284C7; white-space: pre-wrap; line-height: 1.45;"></div>
       <div id="logStream" style="display:none;"></div>
     </div>
 
@@ -849,7 +865,7 @@
 
   <!-- 6. FOOTER -->
   <footer style="text-align:center; padding:20px; font-size:11px; color:#64748B; border-top:1px solid #1E293B; margin-top:30px;">
-    AWS Individual Sandbox • Repo: <a href="https://github.com/cosmosanalytics/AWS-individual-sandbox" target="_blank" style="color:#38BDF8; text-decoration:none;">cosmosanalytics/AWS-individual-sandbox</a> • Region: us-east-2 • Project: For Each and Every
+    AWS Individual Sandbox • Repo: <a href="https://github.com/cosmosanalytics/AWS-individual-sandbox" target="_blank" style="color:#0284C7; text-decoration:none;">cosmosanalytics/AWS-individual-sandbox</a> • Region: us-east-2 • Project: For Each and Every
   </footer>
 
   <!-- 7. APPLICATION LOGIC -->
@@ -2435,9 +2451,9 @@
         if (inLbl) inLbl.textContent = '{"action":"ci_preflight"} (No Passcode)';
         appendLog("[TEST 6 KNOCK 1] Probing Lambda URL with NO passcode...");
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#F43F5E; font-weight:700; margin-bottom:4px;">⛔ HTTP 401 Unauthorized (Knock 1: No Passcode)</div><div style="color:#FDA4AF; font-size:11px; line-height:1.4;"><code>{"ok": false, "locked": true, "error": "Missing owner passcode"}</code><br>Lambda Bouncer active • Request rejected before touching compute.</div>`;
+          resEl.innerHTML = `<div style="color:#DC2626; font-weight:700; margin-bottom:4px;">⛔ HTTP 401 Unauthorized (Knock 1: No Passcode)</div><div style="color:#991B1B; font-size:11px; line-height:1.4;"><code>{"ok": false, "locked": true, "error": "Missing owner passcode"}</code><br>Lambda Bouncer active • Request rejected before touching compute.</div>`;
         }
-        setIoOutput(6, `<strong style="color:#F43F5E;">HTTP 401 Unauthorized</strong> • locked: true (Missing owner passcode)`);
+        setIoOutput(6, `<strong style="color:#DC2626;">HTTP 401 Unauthorized</strong> • locked: true (Missing owner passcode)`);
         if (hud) hud.textContent = "Knock 1: 401 Unauthorized (No Passcode)";
         appendLog("[TEST 6 KNOCK 1 RESULT] HTTP 401 Unauthorized (locked=true). Gateway securely locked.");
         return;
@@ -2448,9 +2464,9 @@
         if (inLbl) inLbl.textContent = '{"action":"ci_preflight"} (Wrong Passcode)';
         appendLog("[TEST 6 KNOCK 2] Probing Lambda URL with WRONG passcode ('invalid_wrong_passcode_999')...");
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#F43F5E; font-weight:700; margin-bottom:4px;">⛔ HTTP 401 Unauthorized (Knock 2: Wrong Passcode)</div><div style="color:#FDA4AF; font-size:11px; line-height:1.4;"><code>{"ok": false, "locked": true, "error": "Invalid passcode hash"}</code><br>Wrong key rejected • Security perimeter intact.</div>`;
+          resEl.innerHTML = `<div style="color:#DC2626; font-weight:700; margin-bottom:4px;">⛔ HTTP 401 Unauthorized (Knock 2: Wrong Passcode)</div><div style="color:#991B1B; font-size:11px; line-height:1.4;"><code>{"ok": false, "locked": true, "error": "Invalid passcode hash"}</code><br>Wrong key rejected • Security perimeter intact.</div>`;
         }
-        setIoOutput(6, `<strong style="color:#F43F5E;">HTTP 401 Unauthorized</strong> • locked: true (Invalid passcode hash)`);
+        setIoOutput(6, `<strong style="color:#DC2626;">HTTP 401 Unauthorized</strong> • locked: true (Invalid passcode hash)`);
         if (hud) hud.textContent = "Knock 2: 401 Unauthorized (Wrong Key)";
         appendLog("[TEST 6 KNOCK 2 RESULT] HTTP 401 Unauthorized (locked=true). Invalid credentials blocked.");
         return;
@@ -2461,9 +2477,9 @@
         if (inLbl) inLbl.textContent = '{"action":"ci_preflight"} (Owner Passcode: ••••••••)';
         appendLog("[TEST 6 KNOCK 3] Probing Lambda URL with Owner Passcode [SECURE]...");
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Door Unlocked! (Knock 3: Owner Passcode)</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Project: <code style="color:#38BDF8;">For Each and Every</code> (Region: us-east-2)<br>Passcode verified: <code>••••••••</code> • Live Lambda Gateway active. Expected HTTP: <strong>200</strong></div>`;
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Door Unlocked! (Knock 3: Owner Passcode)</div><div style="color:#334155; font-size:11px; line-height:1.4;">Project: <code style="color:#0284C7;">For Each and Every</code> (Region: us-east-2)<br>Passcode verified: <code>••••••••</code> • Live Lambda Gateway active. Expected HTTP: <strong>200</strong></div>`;
         }
-        setIoOutput(6, `<strong style="color:#10B981;">HTTP 200 OK</strong> • Door Unlocked • Gateway authorized for us-east-2`);
+        setIoOutput(6, `<strong style="color:#059669;">HTTP 200 OK</strong> • Door Unlocked • Gateway authorized for us-east-2`);
         if (hud) hud.textContent = "Knock 3: 200 OK (Door Unlocked)";
         appendLog("[TEST 6 KNOCK 3 RESULT] HTTP 200 OK! Door unlocked for Project For Each and Every in us-east-2.");
         return;
@@ -2483,9 +2499,9 @@
           lbl.style.color = "#F43F5E";
         }
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#F43F5E; font-weight:700; margin-bottom:4px;">⛔ HTTP 401 Unauthorized (Access Denied)</div><div style="color:#FDA4AF; font-size:11px; line-height:1.4;">HMAC Verification Failed: Invalid Owner Passcode.<br>Live AWS us-east-2 execution strictly blocked. Cloud budget guard: $0.00 / $5.00 safe.</div>`;
+          resEl.innerHTML = `<div style="color:#DC2626; font-weight:700; margin-bottom:4px;">⛔ HTTP 401 Unauthorized (Access Denied)</div><div style="color:#991B1B; font-size:11px; line-height:1.4;">HMAC Verification Failed: Invalid Owner Passcode.<br>Live AWS us-east-2 execution strictly blocked. Cloud budget guard: $0.00 / $5.00 safe.</div>`;
         }
-        setIoOutput(10, `<strong style="color:#F43F5E;">HTTP 401 Unauthorized</strong> • HMAC Invalid • Spend tier locked ($0.00 / $5.00 safe)`);
+        setIoOutput(10, `<strong style="color:#DC2626;">HTTP 401 Unauthorized</strong> • HMAC Invalid • Spend tier locked ($0.00 / $5.00 safe)`);
         if (hud) hud.textContent = "Cost Gate: 401 Unauthorized (Wrong Key)";
         appendLog("[TEST 10 KNOCK 1] Tested invalid passcode 'invalid_bad_passcode_999'. Received HTTP 401 Unauthorized. Access safely denied.");
         return;
@@ -2498,9 +2514,9 @@
           lbl.style.color = "#10B981";
         }
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Owner Cost Gate Authorized</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Owner Passcode verified (SHA-256 HMAC) • Project: <code style="color:#38BDF8;">For Each and Every</code> (us-east-2)<br>Cloud Budget Guard: $0.00 / $5.00 limit • Live AWS execution authorized. Non-owners strictly locked out.</div>`;
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Owner Cost Gate Authorized</div><div style="color:#334155; font-size:11px; line-height:1.4;">Owner Passcode verified (SHA-256 HMAC) • Project: <code style="color:#0284C7;">For Each and Every</code> (us-east-2)<br>Cloud Budget Guard: $0.00 / $5.00 limit • Live AWS execution authorized. Non-owners strictly locked out.</div>`;
         }
-        setIoOutput(10, `<strong style="color:#10B981;">HTTP 200 OK</strong> • Owner Cost Gate Authorized • Live AWS us-east-2 active`);
+        setIoOutput(10, `<strong style="color:#059669;">HTTP 200 OK</strong> • Owner Cost Gate Authorized • Live AWS us-east-2 active`);
         if (hud) hud.textContent = "Cost Gate: Owner Authorized (us-east-2)";
         appendLog("[TEST 10 KNOCK 2] Owner Passcode verified via SHA-256 HMAC. HTTP 200 OK for Project For Each and Every (us-east-2).");
         return;
@@ -2562,9 +2578,9 @@
 
         if (hud) hud.textContent = `Pushing hello.txt to branch sandbox/main-sync (#${curSha})...`;
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Commit #${curSha} Pushed to branch sandbox/main-sync</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Branch: <code>sandbox/main-sync</code> (Isolated Sandbox) • File: <code>hello.txt</code> ("hi")<br>HEAD updated: <code style="color:#38BDF8;">#${curSha}</code> • Triggered Live Actions Run: <code style="color:#38BDF8;">#${curRun}</code> • <a href="https://github.com/cosmosanalytics/AWS-individual-sandbox/tree/main" target="_blank" style="color:#38BDF8;">View Commit</a></div>`;
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Commit #${curSha} Pushed to branch sandbox/main-sync</div><div style="color:#334155; font-size:11px; line-height:1.4;">Branch: <code>sandbox/main-sync</code> (Isolated Sandbox) • File: <code>hello.txt</code> ("hi")<br>HEAD updated: <code style="color:#0284C7;">#${curSha}</code> • Triggered Live Actions Run: <code style="color:#0284C7;">#${curRun}</code> • <a href="https://github.com/cosmosanalytics/AWS-individual-sandbox/tree/main" target="_blank" style="color:#0284C7;">View Commit</a></div>`;
         }
-        setIoOutput(1, `Pushed hello.txt to branch sandbox/main-sync • Commit <code style="color:#38BDF8;">#${curSha}</code> • Actions Run <code style="color:#38BDF8;">#${curRun}</code>`);
+        setIoOutput(1, `Pushed hello.txt to branch sandbox/main-sync • Commit <code style="color:#0284C7;">#${curSha}</code> • Actions Run <code style="color:#0284C7;">#${curRun}</code>`);
         appendLog(`[TEST 1 SUCCESS] Pushed 'hello.txt' ('hi') to sandbox/main-sync. Commit #${curSha} triggered GitHub Actions Run #${curRun}.`);
         if (hud) hud.textContent = `Commit #${curSha} Pushed (Run #${curRun})`;
         return;
@@ -2573,9 +2589,9 @@
       if (tId === 2) {
         if (hud) hud.textContent = "Creating feat/test-pr branch & PR #2...";
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Branch feat/test-pr (#c07ca5f) Created • PR #2 Opened • main HEAD Untouched</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;"><strong>HEAD Comparison:</strong> Before: <code>#39a82f8</code> ➔ After: <code>#39a82f8</code> (<strong style="color:#10B981;">main branch UNTOUCHED</strong>)<br>PR: <code style="color:#38BDF8;">PR #2 (feat/test-pr)</code> • Commit: <code>#c07ca5f</code> • Review Diff: 1 line added • Gate Status: Isolated</div>`;
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Branch feat/test-pr (#c07ca5f) Created • PR #2 Opened • main HEAD Untouched</div><div style="color:#334155; font-size:11px; line-height:1.4;"><strong>HEAD Comparison:</strong> Before: <code>#39a82f8</code> ➔ After: <code>#39a82f8</code> (<strong style="color:#059669;">main branch UNTOUCHED</strong>)<br>PR: <code style="color:#0284C7;">PR #2 (feat/test-pr)</code> • Commit: <code>#c07ca5f</code> • Review Diff: 1 line added • Gate Status: Isolated</div>`;
         }
-        setIoOutput(2, `Branch feat/test-pr (#c07ca5f) • PR #2 Opened • main branch UNTOUCHED at <code style="color:#38BDF8;">#39a82f8</code>`);
+        setIoOutput(2, `Branch feat/test-pr (#c07ca5f) • PR #2 Opened • main branch UNTOUCHED at <code style="color:#0284C7;">#39a82f8</code>`);
         appendLog("[TEST 2 SUCCESS] PR #2 branch 'feat/test-pr' (#c07ca5f) opened against main. Production main HEAD remained untouched at #39a82f8.");
         if (hud) hud.textContent = "PR #2 (feat/test-pr) Opened (main Untouched)";
         return;
@@ -2584,16 +2600,16 @@
       if (tId === 3) {
         if (window._astSimBroken) {
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#F43F5E; font-weight:700; margin-bottom:4px;">❌ Exit Code 1 (AST Check Failed)</div><div style="color:#FDA4AF; font-size:11px; line-height:1.4;">[ERROR] Missing required element/model 'missing.nonexistent.model.spec' in index.html.<br>AST verification failed • Syntax drift prevented before deployment.</div>`;
+            resEl.innerHTML = `<div style="color:#DC2626; font-weight:700; margin-bottom:4px;">❌ Exit Code 1 (AST Check Failed)</div><div style="color:#991B1B; font-size:11px; line-height:1.4;">[ERROR] Missing required element/model 'missing.nonexistent.model.spec' in index.html.<br>AST verification failed • Syntax drift prevented before deployment.</div>`;
           }
-          setIoOutput(3, `<strong style="color:#F43F5E;">Exit 1</strong> • Missing required model spec 'missing.nonexistent.model.spec'`);
+          setIoOutput(3, `<strong style="color:#DC2626;">Exit 1</strong> • Missing required model spec 'missing.nonexistent.model.spec'`);
           appendLog("[TEST 3 FAIL (EXPECTED)] Corrupted spec: Exit Code 1. AST gate blocked invalid syntax.");
           if (hud) hud.textContent = "AST Exit 1 (Drift Caught)";
         } else {
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Exit Code 0 (AST Syntax Valid)</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Validated 24/24 AST nodes: 14 HTML elements (button, canvas, input, select) + 10 JS AST identifiers.<br>index.html syntax tree verified: Claude Sonnet 4.6 model spec matched • 0 syntax errors.</div>`;
+            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Exit Code 0 (AST Syntax Valid)</div><div style="color:#334155; font-size:11px; line-height:1.4;">Validated 24/24 AST nodes: 14 HTML elements (button, canvas, input, select) + 10 JS AST identifiers.<br>index.html syntax tree verified: Claude Sonnet 4.6 model spec matched • 0 syntax errors.</div>`;
           }
-          setIoOutput(3, `<strong style="color:#10B981;">Exit 0</strong> • AST Verified (24/24 nodes) • Claude Sonnet 4.6 model spec matched`);
+          setIoOutput(3, `<strong style="color:#059669;">Exit 0</strong> • AST Verified (24/24 nodes) • Claude Sonnet 4.6 model spec matched`);
           appendLog("[TEST 3 PASS] Clean index.html verified: 24/24 AST nodes validated. Exit Code 0.");
           if (hud) hud.textContent = "AST Exit 0 (24/24 Nodes Valid)";
         }
@@ -2603,16 +2619,16 @@
       if (tId === 4) {
         if (window._testFakeKeyPlanted) {
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#F43F5E; font-weight:700; margin-bottom:4px;">⚠️ Secret Shield Triggered: 1 Leaked Key Found!</div><div style="color:#FDA4AF; font-size:11px; line-height:1.4;">Flagged pattern: <code>AKIAIOSFODNN7EXAMPLE</code> in <code>tests/fixtures/test_credentials.json</code> (line 4).<br>Exit Code 1 • Commit Blocked by DevSecOps pre-commit gate.</div>`;
+            resEl.innerHTML = `<div style="color:#DC2626; font-weight:700; margin-bottom:4px;">⚠️ Secret Shield Triggered: 1 Leaked Key Found!</div><div style="color:#991B1B; font-size:11px; line-height:1.4;">Flagged pattern: <code>AKIAIOSFODNN7EXAMPLE</code> in <code>tests/fixtures/test_credentials.json</code> (line 4).<br>Exit Code 1 • Commit Blocked by DevSecOps pre-commit gate.</div>`;
           }
-          setIoOutput(4, `<strong style="color:#F43F5E;">Exit 1</strong> • 1 leaked credential in tests/fixtures/test_credentials.json (line 4)`);
+          setIoOutput(4, `<strong style="color:#DC2626;">Exit 1</strong> • 1 leaked credential in tests/fixtures/test_credentials.json (line 4)`);
           appendLog("[TEST 4 LEAK FLAGGED] Secret Shield detected fake key AKIAIOSFODNN7EXAMPLE in tests/fixtures/test_credentials.json (line 4). Commit rejected (Exit 1).");
           if (hud) hud.textContent = "Secret Leak Blocked (Exit 1)";
         } else {
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Exit Code 0 (0 Secret Leaks Found)</div><div style="color:#94A3B8; font-size:10.5px; line-height:1.4;"><strong>Scanned 15 files for pattern <code>AKIA[0-9A-Z]{16}</code>:</strong><br><code style="font-size:9.5px; color:#64748B;">[index.html, mod_a_test_01_git_push.html, mod_a_test_02_pull_request.html, mod_b_test_03_ast_review.html, mod_b_test_04_secret_shield.html, mod_b_test_05_ci_matrix.html, mod_b_test_06_aws_401_preflight.html, mod_c_test_07_github_to_aws_push.html, mod_c_test_08_github_to_aws_pull.html, mod_c_test_09_aws_to_github_return.html, mod_d_test_10_cost_shield.html, mod_d_test_11_multi_engine_ai.html, mod_e_test_12_amazon_s3.html, mod_e_test_13_vector_db.html, mod_e_test_14_knowledge_graph.html]</code><br>Status: 0 credentials exposed • DevSecOps zero-leak gate verified.</div>`;
+            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Exit Code 0 (0 Secret Leaks Found)</div><div style="color:#334155; font-size:10.5px; line-height:1.4;"><strong>Scanned 15 files for pattern <code>AKIA[0-9A-Z]{16}</code>:</strong><br><code style="font-size:9.5px; color:#64748B;">[index.html, mod_a_test_01_git_push.html, mod_a_test_02_pull_request.html, mod_b_test_03_ast_review.html, mod_b_test_04_secret_shield.html, mod_b_test_05_ci_matrix.html, mod_b_test_06_aws_401_preflight.html, mod_c_test_07_github_to_aws_push.html, mod_c_test_08_github_to_aws_pull.html, mod_c_test_09_aws_to_github_return.html, mod_d_test_10_cost_shield.html, mod_d_test_11_multi_engine_ai.html, mod_e_test_12_amazon_s3.html, mod_e_test_13_vector_db.html, mod_e_test_14_knowledge_graph.html]</code><br>Status: 0 credentials exposed • DevSecOps zero-leak gate verified.</div>`;
           }
-          setIoOutput(4, `<strong style="color:#10B981;">Exit 0</strong> • 0 secret leaks found across 15 repository files scanned`);
+          setIoOutput(4, `<strong style="color:#059669;">Exit 0</strong> • 0 secret leaks found across 15 repository files scanned`);
           appendLog("[TEST 4 PASS] Scanned 15 repository files: 0 secret leaks found. Exit Code 0.");
           if (hud) hud.textContent = "0 Leaks Found (15 Files Scanned)";
         }
@@ -2632,9 +2648,9 @@
         } else {
           const runId = window._latestActionsRun || "39420815921";
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Exit Code 0 (48/48 CI Matrix All Clear)</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Scope: <code>ALL</code> • Live GitHub Actions Run ID: <code style="color:#38BDF8;">#${runId}</code>.<br>Matrix: Unit (16/16), Integration (16/16), Security (16/16). Gate Status: <code>PASSED</code></div>`;
+            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Exit Code 0 (48/48 CI Matrix All Clear)</div><div style="color:#334155; font-size:11px; line-height:1.4;">Scope: <code>ALL</code> • Live GitHub Actions Run ID: <code style="color:#0284C7;">#${runId}</code>.<br>Matrix: Unit (16/16), Integration (16/16), Security (16/16). Gate Status: <code>PASSED</code></div>`;
           }
-          setIoOutput(5, `<strong style="color:#10B981;">Exit 0</strong> • 48/48 CI Matrix Checks Passed (100% Coverage) • Actions Run #${runId}`);
+          setIoOutput(5, `<strong style="color:#059669;">Exit 0</strong> • 48/48 CI Matrix Checks Passed (100% Coverage) • Actions Run #${runId}`);
           appendLog(`[TEST 5 PASS] Scope: ALL. 48/48 CI matrix checks passed with Run ID #${runId} (Exit 0).`);
           if (hud) hud.textContent = `CI Matrix: 48/48 Exit 0 (Run #${runId})`;
         }
@@ -2648,15 +2664,15 @@
       if (tId === 7) {
         if (hud) hud.textContent = "Pushing prompt to AWS us-east-2...";
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Step Functions Execution Started (exec-sfn-78a2f4c9)</div>
-            <div style="color:#94A3B8; font-size:11px; line-height:1.45;">
-              <div><strong>Pipeline ARN:</strong> <code style="color:#38BDF8; font-size:10px;">arn:aws:states:us-east-2:********7102:execution:cosmos-cicd-ai-pipeline-sfn:exec-sfn-78a2f4c9</code></div>
-              <div style="margin:3px 0;"><strong>Execution Status:</strong> <span style="color:#10B981; font-weight:700;">SUCCEEDED (Verified in us-east-2)</span></div>
-              <div style="background:#0B0F19; border:1px solid #1E293B; border-radius:4px; padding:4px 6px; margin:3px 0; font-family:var(--font-mono); font-size:10px; color:#A78BFA;">Payload: {"source":"GitHubActions","action":"bridge_trigger","region":"us-east-2","executionId":"exec-sfn-78a2f4c9"}</div>
-              <a href="https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/arn:aws:states:us-east-2:********7102:execution:cosmos-cicd-ai-pipeline-sfn:exec-sfn-78a2f4c9" target="_blank" style="display:inline-block; margin-top:2px; color:#38BDF8; font-weight:700; text-decoration:underline;">↗ View Live Execution in AWS Step Functions Console (us-east-2)</a>
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Step Functions Execution Started (exec-sfn-78a2f4c9)</div>
+            <div style="color:#334155; font-size:11px; line-height:1.45;">
+              <div><strong>Pipeline ARN:</strong> <code style="color:#0284C7; font-size:10px;">arn:aws:states:us-east-2:********7102:execution:cosmos-cicd-ai-pipeline-sfn:exec-sfn-78a2f4c9</code></div>
+              <div style="margin:3px 0;"><strong>Execution Status:</strong> <span style="color:#059669; font-weight:700;">SUCCEEDED (Verified in us-east-2)</span></div>
+              <div style="background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px; padding:4px 6px; margin:3px 0; font-family:var(--font-mono); font-size:10px; color:#7C3AED;">Payload: {"source":"GitHubActions","action":"bridge_trigger","region":"us-east-2","executionId":"exec-sfn-78a2f4c9"}</div>
+              <a href="https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/arn:aws:states:us-east-2:********7102:execution:cosmos-cicd-ai-pipeline-sfn:exec-sfn-78a2f4c9" target="_blank" style="display:inline-block; margin-top:2px; color:#0284C7; font-weight:700; text-decoration:underline;">↗ View Live Execution in AWS Step Functions Console (us-east-2)</a>
             </div>`;
         }
-        setIoOutput(7, `<strong style="color:#10B981;">HTTP 200 OK</strong> • Step Functions exec-sfn-78a2f4c9 started in us-east-2 (Project For Each and Every)`);
+        setIoOutput(7, `<strong style="color:#059669;">HTTP 200 OK</strong> • Step Functions exec-sfn-78a2f4c9 started in us-east-2 (Project For Each and Every)`);
         appendLog("[TEST 7 SUCCESS] HTTPS POST to Lambda in us-east-2 initiated Step Functions execution exec-sfn-78a2f4c9.");
         if (hud) hud.textContent = "Bridge 1: Push 200 OK (exec-sfn-78a2f4c9)";
         return;
@@ -2667,9 +2683,9 @@
         const commitSha = window._latestSandboxCommit || "a41f89c";
         const runId = window._latestActionsRun || "39420815921";
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Repo State Synchronized</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Commit SHA: <code style="color:#38BDF8;">#${commitSha}</code> (Cross-checked with Test 1 push on sandbox branch)<br>Actions Run ID: <code style="color:#38BDF8;">#${runId}</code> (Triggered by Test 1 on sandbox branch) • State: Success</div>`;
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Repo State Synchronized</div><div style="color:#334155; font-size:11px; line-height:1.4;">Commit SHA: <code style="color:#0284C7;">#${commitSha}</code> (Cross-checked with Test 1 push on sandbox branch)<br>Actions Run ID: <code style="color:#0284C7;">#${runId}</code> (Triggered by Test 1 on sandbox branch) • State: Success</div>`;
         }
-        setIoOutput(8, `HTTP 200 OK • Synchronized Commit <code style="color:#38BDF8;">#${commitSha}</code> & Actions Run <code style="color:#38BDF8;">#${runId}</code>`);
+        setIoOutput(8, `HTTP 200 OK • Synchronized Commit <code style="color:#0284C7;">#${commitSha}</code> & Actions Run <code style="color:#0284C7;">#${runId}</code>`);
         appendLog(`[TEST 8 SUCCESS] Lambda pulled repo state from GitHub API. Verified Commit #${commitSha} and Actions Run ID #${runId}.`);
         if (hud) hud.textContent = `Bridge 2: Pull 200 OK (#${commitSha} / #${runId})`;
         return;
@@ -2678,9 +2694,9 @@
       if (tId === 9) {
         if (hud) hud.textContent = "Storing signed receipt in S3...";
         if (resEl) {
-          resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Bedrock Deployment Receipt Stored</div><div style="color:#94A3B8; font-size:11px; line-height:1.4;">Receipt S3 Key: <code style="color:#38BDF8;">s3://cosmos-ai-factory-cicd-artifacts/deployments/receipt-exec-sfn-78a2f4c9.json</code><br>KMS Signature: <code>kms-sig-c491e882a1df058b73a2468d</code> (Receipt Hash: <code>"a7c93e41b209..."</code>)<br>Bridge Return Complete: Bedrock Claude Sonnet 4.6 response signed &amp; stored in S3 us-east-2.</div>`;
+          resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Bedrock Deployment Receipt Stored</div><div style="color:#334155; font-size:11px; line-height:1.4;">Receipt S3 Key: <code style="color:#0284C7;">s3://cosmos-ai-factory-cicd-artifacts/deployments/receipt-exec-sfn-78a2f4c9.json</code><br>KMS Signature: <code>kms-sig-c491e882a1df058b73a2468d</code> (Receipt Hash: <code>"a7c93e41b209..."</code>)<br>Bridge Return Complete: Bedrock Claude Sonnet 4.6 response signed &amp; stored in S3 us-east-2.</div>`;
         }
-        setIoOutput(9, `<strong style="color:#10B981;">HTTP 200 OK</strong> • Bedrock Claude Sonnet 4.6 receipt written to S3 with KMS signature`);
+        setIoOutput(9, `<strong style="color:#059669;">HTTP 200 OK</strong> • Bedrock Claude Sonnet 4.6 receipt written to S3 with KMS signature`);
         appendLog("[TEST 9 SUCCESS] Bedrock deployment receipt written to S3 bucket with KMS signature kms-sig-c491e882a1df058b73a2468d.");
         if (hud) hud.textContent = "Bridge 3: Return 200 OK (Receipt Stored)";
         return;
@@ -2698,21 +2714,21 @@
         const groqTokS = Math.floor(485 + Math.random() * 15);
         if (resEl) {
           resEl.innerHTML = `
-            <div style="color:#10B981; font-weight:700; margin-bottom:6px;">🟢 Multi-Engine AI Dispatch &amp; Benchmark Complete</div>
-            <div style="margin-bottom:6px; padding:6px 8px; background:#0B0F19; border:1px solid #1E293B; border-radius:4px;">
-              <span style="color:#38BDF8; font-weight:700;">Amazon Bedrock (Claude Sonnet 4.6 in us-east-2) • Latency: ${bedrockMs.toLocaleString()}ms • 84 Tokens (~68 tok/s):</span><br>
-              <span style="color:#F8FAFC; font-family:var(--font-mono); font-size:10.5px;">"Verified end-to-end cloud pipeline: HTTPS POST to Lambda URL in us-east-2 initiates Step Functions execution, orchestrating Bedrock Claude Sonnet 4.6 inference, writing KMS SSE-S3 encrypted audit receipts, and validating zero token leakage across the DevSecOps boundary."</span>
+            <div style="color:#059669; font-weight:700; margin-bottom:6px;">🟢 Multi-Engine AI Dispatch &amp; Benchmark Complete</div>
+            <div style="margin-bottom:6px; padding:6px 8px; background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px;">
+              <span style="color:#0284C7; font-weight:700;">Amazon Bedrock (Claude Sonnet 4.6 in us-east-2) • Latency: ${bedrockMs.toLocaleString()}ms • 84 Tokens (~68 tok/s):</span><br>
+              <span style="color:#0F172A; font-family:var(--font-mono); font-size:10.5px;">"Verified end-to-end cloud pipeline: HTTPS POST to Lambda URL in us-east-2 initiates Step Functions execution, orchestrating Bedrock Claude Sonnet 4.6 inference, writing KMS SSE-S3 encrypted audit receipts, and validating zero token leakage across the DevSecOps boundary."</span>
             </div>
-            <div style="margin-bottom:6px; padding:6px 8px; background:#0B0F19; border:1px solid #1E293B; border-radius:4px;">
-              <span style="color:#A78BFA; font-weight:700;">Groq LPU (Llama-3.3-70B) • Latency: ${groqMs}ms • 63 Tokens (~${groqTokS} tok/s):</span><br>
-              <span style="color:#F8FAFC; font-family:var(--font-mono); font-size:10.5px;">"Step Functions pipeline execution validated with 100% policy compliance in us-east-2."</span>
+            <div style="margin-bottom:6px; padding:6px 8px; background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px;">
+              <span style="color:#7C3AED; font-weight:700;">Groq LPU (Llama-3.3-70B) • Latency: ${groqMs}ms • 63 Tokens (~${groqTokS} tok/s):</span><br>
+              <span style="color:#0F172A; font-family:var(--font-mono); font-size:10.5px;">"Step Functions pipeline execution validated with 100% policy compliance in us-east-2."</span>
             </div>
-            <div style="padding:6px 8px; background:#0B0F19; border:1px solid #1E293B; border-radius:4px;">
-              <span style="color:#34D399; font-weight:700;">Local WebGPU (Llama 3.2 3B In-Browser) • Latency: ${webgpuMs}ms • 42 Tokens • Zero Cloud Cost ($0.00):</span><br>
-              <span style="color:#F8FAFC; font-family:var(--font-mono); font-size:10.5px;">"Client-side WebGPU shader inference complete: 42 tokens generated locally via browser without cloud network egress or API charges ($0.00)."</span>
+            <div style="padding:6px 8px; background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px;">
+              <span style="color:#059669; font-weight:700;">Local WebGPU (Llama 3.2 3B In-Browser) • Latency: ${webgpuMs}ms • 42 Tokens • Zero Cloud Cost ($0.00):</span><br>
+              <span style="color:#0F172A; font-family:var(--font-mono); font-size:10.5px;">"Client-side WebGPU shader inference complete: 42 tokens generated locally via browser without cloud network egress or API charges ($0.00)."</span>
             </div>`;
         }
-        setIoOutput(11, `<strong style="color:#10B981;">Complete</strong> • Bedrock Claude Sonnet 4.6 (${bedrockMs.toLocaleString()}ms, 84 tok) • Groq (${groqMs}ms) • WebGPU (${webgpuMs}ms)`);
+        setIoOutput(11, `<strong style="color:#059669;">Complete</strong> • Bedrock Claude Sonnet 4.6 (${bedrockMs.toLocaleString()}ms, 84 tok) • Groq (${groqMs}ms) • WebGPU (${webgpuMs}ms)`);
         appendLog(`[TEST 11 SUCCESS] Multi-engine AI benchmark complete: Bedrock Sonnet 4.6 (${bedrockMs.toLocaleString()}ms, 84 tok), Groq Llama-3.3-70B (${groqMs}ms), Local WebGPU (${webgpuMs}ms, $0.00).`);
         if (hud) hud.textContent = `Bedrock: ${bedrockMs}ms (84 tok) | Groq: ${groqMs}ms | WebGPU: ${webgpuMs}ms`;
         return;
@@ -2730,27 +2746,27 @@
         if (sub === "upload") {
           if (hud) hud.textContent = `Uploading ${byteCount} Bytes to S3 us-east-2...`;
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 S3 PutObject 200 OK • ${byteCount} Bytes Uploaded</div>
-              <div style="color:#94A3B8; font-size:11px; line-height:1.45;">
-                Key: <code style="color:#38BDF8;">deployments/test-artifact.json</code> • Size: <strong>${byteCount} Bytes</strong><br>
-                Payload SHA-256: <code style="color:#38BDF8;">${realSha256}</code><br>
-                S3 ETag (MD5 Checksum): <code style="color:#A78BFA;">${s3Etag}</code> • SSE: <code>aws:kms (us-east-2)</code>
+            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 S3 PutObject 200 OK • ${byteCount} Bytes Uploaded</div>
+              <div style="color:#334155; font-size:11px; line-height:1.45;">
+                Key: <code style="color:#0284C7;">deployments/test-artifact.json</code> • Size: <strong>${byteCount} Bytes</strong><br>
+                Payload SHA-256: <code style="color:#0284C7;">${realSha256}</code><br>
+                S3 ETag (MD5 Checksum): <code style="color:#7C3AED;">${s3Etag}</code> • SSE: <code>aws:kms (us-east-2)</code>
               </div>`;
           }
-          setIoOutput(12, `<strong style="color:#10B981;">S3 PutObject 200 OK</strong> • ${byteCount}B • SHA-256: ${realSha256.substring(0, 10)}...${realSha256.substring(58)} • S3 ETag (MD5): ${s3Etag}`);
+          setIoOutput(12, `<strong style="color:#059669;">S3 PutObject 200 OK</strong> • ${byteCount}B • SHA-256: ${realSha256.substring(0, 10)}...${realSha256.substring(58)} • S3 ETag (MD5): ${s3Etag}`);
           appendLog(`[TEST 12 UPLOAD] Uploaded ${byteCount} Bytes to deployments/test-artifact.json. SHA-256: ${realSha256}. S3 ETag (MD5): ${s3Etag}.`);
           if (hud) hud.textContent = `S3 PutObject: ${byteCount} Bytes (ETag: ${s3Etag.substring(1, 9)}...)`;
         } else {
           if (hud) hud.textContent = "Downloading & verifying SHA-256 checksum...";
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 S3 GetObject 200 OK • Byte Checksum Verified (${byteCount} Bytes)</div>
-              <div style="color:#94A3B8; font-size:11px; line-height:1.45;">
-                Downloaded: <strong>${byteCount} Bytes</strong> • S3 ETag (MD5): <code style="color:#A78BFA;">${s3Etag}</code><br>
-                Download SHA-256: <code style="color:#38BDF8;">${realSha256}</code><br>
-                Verification: <code>Upload SHA-256 === Download SHA-256</code> ➔ <strong style="color:#10B981;">100% Bit-for-Bit Identical Match</strong>
+            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 S3 GetObject 200 OK • Byte Checksum Verified (${byteCount} Bytes)</div>
+              <div style="color:#334155; font-size:11px; line-height:1.45;">
+                Downloaded: <strong>${byteCount} Bytes</strong> • S3 ETag (MD5): <code style="color:#7C3AED;">${s3Etag}</code><br>
+                Download SHA-256: <code style="color:#0284C7;">${realSha256}</code><br>
+                Verification: <code>Upload SHA-256 === Download SHA-256</code> ➔ <strong style="color:#059669;">100% Bit-for-Bit Identical Match</strong>
               </div>`;
           }
-          setIoOutput(12, `<strong style="color:#10B981;">S3 GetObject 200 OK</strong> • ${byteCount} Bytes • 100% Bit-for-Bit Identical Checksum Match`);
+          setIoOutput(12, `<strong style="color:#059669;">S3 GetObject 200 OK</strong> • ${byteCount} Bytes • 100% Bit-for-Bit Identical Checksum Match`);
           appendLog(`[TEST 12 DOWNLOAD] Downloaded ${byteCount} Bytes. SHA-256: ${realSha256}. S3 ETag (MD5): ${s3Etag}. Match verified: 100% bit-for-bit identical.`);
           if (hud) hud.textContent = `S3 GetObject: SHA-256 Verified (${byteCount} Bytes)`;
         }
@@ -2761,17 +2777,17 @@
         if (hud) hud.textContent = "Executing Vector DB Semantic Search (10 Questions Scorecard)...";
         if (resEl) {
           resEl.innerHTML = `
-            <div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Vector DB &amp; Semantic Search Benchmark (10-Question Scorecard)</div>
+            <div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Vector DB &amp; Semantic Search Benchmark (10-Question Scorecard)</div>
             <div style="display:flex; gap:12px; margin:4px 0 6px 0; font-size:11px; font-weight:700;">
               <span style="color:#F59E0B;">Pure Vector Cosine: 9 / 10 Passed (90.0% Recall)</span>
-              <span style="color:#10B981;">Hybrid Filtered: 10 / 10 Passed (100.0% Recall)</span>
+              <span style="color:#059669;">Hybrid Filtered: 10 / 10 Passed (100.0% Recall)</span>
             </div>
-            <div style="margin:4px 0; padding:6px; background:#0B0F19; border:1px solid #1E293B; border-radius:4px; font-size:10px; line-height:1.45;">
-              <div style="color:#38BDF8; font-weight:700; margin-bottom:2px;">Question 10 (Negation Challenge): <em>"Which services are NOT in us-east-1 and have exactly 1 Lambda URL?"</em></div>
-              <div style="color:#FDA4AF;">❌ Step A: Pure Vector Cosine Embedding (Top Hit = Rank 1 at 91.4% similarity):<br>&nbsp;&nbsp;&nbsp;Hit: <code>CloudFront &amp; WAF (Global us-east-1 edge, Lambda URL in us-east-2)</code> ➔ <strong>FAILED (Lost Negation)</strong></div>
+            <div style="margin:4px 0; padding:6px; background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px; font-size:10px; line-height:1.45;">
+              <div style="color:#0284C7; font-weight:700; margin-bottom:2px;">Question 10 (Negation Challenge): <em>"Which services are NOT in us-east-1 and have exactly 1 Lambda URL?"</em></div>
+              <div style="color:#991B1B;">❌ Step A: Pure Vector Cosine Embedding (Top Hit = Rank 1 at 91.4% similarity):<br>&nbsp;&nbsp;&nbsp;Hit: <code>CloudFront &amp; WAF (Global us-east-1 edge, Lambda URL in us-east-2)</code> ➔ <strong>FAILED (Lost Negation)</strong></div>
               <div style="color:#A7F3D0; margin-top:2px;">🟢 Step B: Hybrid Retrieval (Vector + Metadata: region != 'us-east-1'):<br>&nbsp;&nbsp;&nbsp;Hit: <code>AWS Lambda us-east-2 Function URL</code> [Score: 0.962] ➔ <strong>PASSED (Expected Passage)</strong></div>
             </div>
-            <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:3px; font-size:9.5px; font-family:var(--font-mono); color:#94A3B8; margin-top:4px;">
+            <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:3px; font-size:9.5px; font-family:var(--font-mono); color:#334155; margin-top:4px;">
               <div>[✓] Q01 Region Target: Vector ✓ | Hybrid ✓</div>
               <div>[✓] Q02 S3 KMS Policy: Vector ✓ | Hybrid ✓</div>
               <div>[✓] Q03 CI Suite Size: Vector ✓ | Hybrid ✓</div>
@@ -2784,7 +2800,7 @@
               <div style="color:#FCD34D;">[!] Q10 Negation Query: Vector ✗ | Hybrid ✓</div>
             </div>`;
         }
-        setIoOutput(13, `<strong style="color:#10B981;">10 Questions Evaluated</strong> • Pure Vector: 9/10 Passed (90%) | Hybrid: 10/10 Passed (100%)`);
+        setIoOutput(13, `<strong style="color:#059669;">10 Questions Evaluated</strong> • Pure Vector: 9/10 Passed (90%) | Hybrid: 10/10 Passed (100%)`);
         appendLog("[TEST 13 BENCHMARK] Evaluated 10 questions. Negation demonstrated cosine lossiness (90% pure vector); Hybrid filter achieved 100% recall.");
         if (hud) hud.textContent = "Vector DB: Pure Vector 9/10 | Hybrid 10/10 Passed";
         return;
@@ -2797,38 +2813,38 @@
           if (resEl) {
             resEl.innerHTML = `
               <div style="color:#F59E0B; font-weight:700; margin-bottom:4px;">⚠️ Knowledge Graph Traversal • Planted False Edge Detected</div>
-              <div style="color:#94A3B8; font-size:10.5px; line-height:1.45;">
-                <div><strong>Cypher Query:</strong> <code style="color:#38BDF8;">MATCH path = (g:GitHubActions)-[:CONNECTS_TO*1..3]->(target) RETURN path</code></div>
+              <div style="color:#334155; font-size:10.5px; line-height:1.45;">
+                <div><strong>Cypher Query:</strong> <code style="color:#0284C7;">MATCH path = (g:GitHubActions)-[:CONNECTS_TO*1..3]->(target) RETURN path</code></div>
                 <div><strong>Traversed Relations:</strong> 13 relations (12 valid + 1 planted phantom edge)</div>
                 <div style="display:flex; gap:16px; margin:4px 0; font-weight:700;">
-                  <span style="color:#10B981;">Fact Coverage: 20 / 20 (100.0%)</span>
+                  <span style="color:#059669;">Fact Coverage: 20 / 20 (100.0%)</span>
                   <span style="color:#F59E0B;">Edge Precision: 12 / 13 (92.3%)</span>
-                  <span style="color:#F43F5E;">Hallucinations: 1 Planted Flagged</span>
+                  <span style="color:#DC2626;">Hallucinations: 1 Planted Flagged</span>
                 </div>
-                <div style="padding:4px 8px; background:#1C1322; border:1px solid #831843; border-radius:4px; margin-bottom:4px; font-size:10px; color:#FDA4AF;">
+                <div style="padding:4px 8px; background:#FEF2F2; border:1.5px solid #FCA5A5; border-radius:4px; margin-bottom:4px; font-size:10px; color:#991B1B;">
                   ⛔ <strong>Hallucination Caught:</strong> <code>(AWSLambda)-[:BYPASSES_SFN_DIRECT_TO_S3]->(AmazonS3)</code> violates architectural invariant. Lambda must route through Step Functions.
                 </div>
-                <div style="background:#0B0F19; border:1px solid #1E293B; border-radius:4px; padding:6px; font-size:9px; font-family:var(--font-mono); color:#94A3B8; display:grid; grid-template-columns: repeat(2, 1fr); gap:2px;">
-                  <span style="color:#34D399;">[✓] F01: GHA ➔ Lambda Edge</span>
-                  <span style="color:#34D399;">[✓] F02: Lambda ➔ SFN Edge</span>
-                  <span style="color:#34D399;">[✓] F03: SFN ➔ Bedrock Edge</span>
-                  <span style="color:#34D399;">[✓] F04: Bedrock ➔ S3 Receipt</span>
-                  <span style="color:#34D399;">[✓] F05: S3 ➔ VectorStore Sync</span>
-                  <span style="color:#34D399;">[✓] F06: Vector ➔ Graph Enrich</span>
-                  <span style="color:#34D399;">[✓] F07: GHA ➔ Passcode Auth</span>
-                  <span style="color:#34D399;">[✓] F08: Auth ➔ Cost Guard</span>
-                  <span style="color:#34D399;">[✓] F09: SFN ➔ CloudWatch Log</span>
-                  <span style="color:#34D399;">[✓] F10: S3 ➔ KMS Encryption</span>
-                  <span style="color:#34D399;">[✓] F11: Vector ➔ Hybrid Filter</span>
-                  <span style="color:#34D399;">[✓] F12: Graph ➔ CI Matrix Assert</span>
-                  <span style="color:#38BDF8;">[✓] F13: Lambda.region == us-east-2</span>
-                  <span style="color:#38BDF8;">[✓] F14: Model == Sonnet 4.6</span>
-                  <span style="color:#38BDF8;">[✓] F15: S3.sse == aws:kms</span>
-                  <span style="color:#38BDF8;">[✓] F16: CostGuard.limit == $5.00</span>
-                  <span style="color:#38BDF8;">[✓] F17: Branch == sandbox/main-sync</span>
-                  <span style="color:#38BDF8;">[✓] F18: Main.head == untouched</span>
-                  <span style="color:#38BDF8;">[✓] F19: CIMatrix.tests == 48</span>
-                  <span style="color:#38BDF8;">[✓] F20: Preflight.unauth == 401</span>
+                <div style="background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px; padding:6px; font-size:9px; font-family:var(--font-mono); color:#334155; display:grid; grid-template-columns: repeat(2, 1fr); gap:2px;">
+                  <span style="color:#059669;">[✓] F01: GHA ➔ Lambda Edge</span>
+                  <span style="color:#059669;">[✓] F02: Lambda ➔ SFN Edge</span>
+                  <span style="color:#059669;">[✓] F03: SFN ➔ Bedrock Edge</span>
+                  <span style="color:#059669;">[✓] F04: Bedrock ➔ S3 Receipt</span>
+                  <span style="color:#059669;">[✓] F05: S3 ➔ VectorStore Sync</span>
+                  <span style="color:#059669;">[✓] F06: Vector ➔ Graph Enrich</span>
+                  <span style="color:#059669;">[✓] F07: GHA ➔ Passcode Auth</span>
+                  <span style="color:#059669;">[✓] F08: Auth ➔ Cost Guard</span>
+                  <span style="color:#059669;">[✓] F09: SFN ➔ CloudWatch Log</span>
+                  <span style="color:#059669;">[✓] F10: S3 ➔ KMS Encryption</span>
+                  <span style="color:#059669;">[✓] F11: Vector ➔ Hybrid Filter</span>
+                  <span style="color:#059669;">[✓] F12: Graph ➔ CI Matrix Assert</span>
+                  <span style="color:#0284C7;">[✓] F13: Lambda.region == us-east-2</span>
+                  <span style="color:#0284C7;">[✓] F14: Model == Sonnet 4.6</span>
+                  <span style="color:#0284C7;">[✓] F15: S3.sse == aws:kms</span>
+                  <span style="color:#0284C7;">[✓] F16: CostGuard.limit == $5.00</span>
+                  <span style="color:#0284C7;">[✓] F17: Branch == sandbox/main-sync</span>
+                  <span style="color:#0284C7;">[✓] F18: Main.head == untouched</span>
+                  <span style="color:#0284C7;">[✓] F19: CIMatrix.tests == 48</span>
+                  <span style="color:#0284C7;">[✓] F20: Preflight.unauth == 401</span>
                 </div>
               </div>`;
           }
@@ -2838,40 +2854,40 @@
         } else {
           if (resEl) {
             resEl.innerHTML = `
-              <div style="color:#10B981; font-weight:700; margin-bottom:4px;">🟢 Knowledge Graph Traversal &amp; 20-Fact Audit Complete</div>
-              <div style="color:#94A3B8; font-size:10.5px; line-height:1.45;">
-                <div><strong>Cypher Query:</strong> <code style="color:#38BDF8;">MATCH path = (g:GitHubActions)-[:CONNECTS_TO*1..3]->(target) RETURN path</code></div>
+              <div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 Knowledge Graph Traversal &amp; 20-Fact Audit Complete</div>
+              <div style="color:#334155; font-size:10.5px; line-height:1.45;">
+                <div><strong>Cypher Query:</strong> <code style="color:#0284C7;">MATCH path = (g:GitHubActions)-[:CONNECTS_TO*1..3]->(target) RETURN path</code></div>
                 <div><strong>Traversed Nodes (7 nodes, 3 hops):</strong> <code>GitHubActions ➔ AWSLambda ➔ StepFunctions ➔ BedrockSonnet ➔ AmazonS3 ➔ VectorStore ➔ KnowledgeGraph</code></div>
                 <div style="display:flex; gap:16px; margin:4px 0; font-weight:700;">
-                  <span style="color:#10B981;">Document Fact Coverage: 20 / 20 (100.0%)</span>
-                  <span style="color:#10B981;">Edge Precision: 12 / 12 (100.0%)</span>
-                  <span style="color:#38BDF8;">Hallucinations: 0 (0.0%)</span>
+                  <span style="color:#059669;">Document Fact Coverage: 20 / 20 (100.0%)</span>
+                  <span style="color:#059669;">Edge Precision: 12 / 12 (100.0%)</span>
+                  <span style="color:#0284C7;">Hallucinations: 0 (0.0%)</span>
                 </div>
-                <div style="background:#0B0F19; border:1px solid #1E293B; border-radius:4px; padding:6px; font-size:9px; font-family:var(--font-mono); color:#94A3B8; display:grid; grid-template-columns: repeat(2, 1fr); gap:2px;">
-                  <span style="color:#34D399;">[✓] F01: GHA ➔ Lambda Edge</span>
-                  <span style="color:#34D399;">[✓] F02: Lambda ➔ SFN Edge</span>
-                  <span style="color:#34D399;">[✓] F03: SFN ➔ Bedrock Edge</span>
-                  <span style="color:#34D399;">[✓] F04: Bedrock ➔ S3 Receipt</span>
-                  <span style="color:#34D399;">[✓] F05: S3 ➔ VectorStore Sync</span>
-                  <span style="color:#34D399;">[✓] F06: Vector ➔ Graph Enrich</span>
-                  <span style="color:#34D399;">[✓] F07: GHA ➔ Passcode Auth</span>
-                  <span style="color:#34D399;">[✓] F08: Auth ➔ Cost Guard</span>
-                  <span style="color:#34D399;">[✓] F09: SFN ➔ CloudWatch Log</span>
-                  <span style="color:#34D399;">[✓] F10: S3 ➔ KMS Encryption</span>
-                  <span style="color:#34D399;">[✓] F11: Vector ➔ Hybrid Filter</span>
-                  <span style="color:#34D399;">[✓] F12: Graph ➔ CI Matrix Assert</span>
-                  <span style="color:#38BDF8;">[✓] F13: Lambda.region == us-east-2</span>
-                  <span style="color:#38BDF8;">[✓] F14: Model == Sonnet 4.6</span>
-                  <span style="color:#38BDF8;">[✓] F15: S3.sse == aws:kms</span>
-                  <span style="color:#38BDF8;">[✓] F16: CostGuard.limit == $5.00</span>
-                  <span style="color:#38BDF8;">[✓] F17: Branch == sandbox/main-sync</span>
-                  <span style="color:#38BDF8;">[✓] F18: Main.head == untouched</span>
-                  <span style="color:#38BDF8;">[✓] F19: CIMatrix.tests == 48</span>
-                  <span style="color:#38BDF8;">[✓] F20: Preflight.unauth == 401</span>
+                <div style="background:#F1F5F9; border:1.5px solid #CBD5E1; border-radius:4px; padding:6px; font-size:9px; font-family:var(--font-mono); color:#334155; display:grid; grid-template-columns: repeat(2, 1fr); gap:2px;">
+                  <span style="color:#059669;">[✓] F01: GHA ➔ Lambda Edge</span>
+                  <span style="color:#059669;">[✓] F02: Lambda ➔ SFN Edge</span>
+                  <span style="color:#059669;">[✓] F03: SFN ➔ Bedrock Edge</span>
+                  <span style="color:#059669;">[✓] F04: Bedrock ➔ S3 Receipt</span>
+                  <span style="color:#059669;">[✓] F05: S3 ➔ VectorStore Sync</span>
+                  <span style="color:#059669;">[✓] F06: Vector ➔ Graph Enrich</span>
+                  <span style="color:#059669;">[✓] F07: GHA ➔ Passcode Auth</span>
+                  <span style="color:#059669;">[✓] F08: Auth ➔ Cost Guard</span>
+                  <span style="color:#059669;">[✓] F09: SFN ➔ CloudWatch Log</span>
+                  <span style="color:#059669;">[✓] F10: S3 ➔ KMS Encryption</span>
+                  <span style="color:#059669;">[✓] F11: Vector ➔ Hybrid Filter</span>
+                  <span style="color:#059669;">[✓] F12: Graph ➔ CI Matrix Assert</span>
+                  <span style="color:#0284C7;">[✓] F13: Lambda.region == us-east-2</span>
+                  <span style="color:#0284C7;">[✓] F14: Model == Sonnet 4.6</span>
+                  <span style="color:#0284C7;">[✓] F15: S3.sse == aws:kms</span>
+                  <span style="color:#0284C7;">[✓] F16: CostGuard.limit == $5.00</span>
+                  <span style="color:#0284C7;">[✓] F17: Branch == sandbox/main-sync</span>
+                  <span style="color:#0284C7;">[✓] F18: Main.head == untouched</span>
+                  <span style="color:#0284C7;">[✓] F19: CIMatrix.tests == 48</span>
+                  <span style="color:#0284C7;">[✓] F20: Preflight.unauth == 401</span>
                 </div>
               </div>`;
           }
-          setIoOutput(14, `<strong style="color:#10B981;">3 Hops, 7 Nodes, 12 Relations</strong> • 20/20 Document Facts Verified (100% Coverage, 100% Precision)`);
+          setIoOutput(14, `<strong style="color:#059669;">3 Hops, 7 Nodes, 12 Relations</strong> • 20/20 Document Facts Verified (100% Coverage, 100% Precision)`);
           appendLog("[TEST 14 GRAPH] Cypher traversal verified: 3 hops, 7 nodes, 12 relations. 20/20 document facts verified (100% precision, 0 hallucinations).");
           if (hud) hud.textContent = "Knowledge Graph: 3 Hops, 7 Nodes, 20/20 Facts (100% Precision)";
         }
