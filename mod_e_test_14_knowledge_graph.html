@@ -650,7 +650,7 @@
 <span>🕸️ Test 14: Knowledge Graph Database</span>
 <button class="btn btn-green" onclick="runTest(14)">▶️ Test Graph DB</button>
 </div>
-<div class="tc-desc">Query entities, multi-hop relationships &amp; graph topology:</div>
+<div class="tc-desc">Query entities, multi-hop relationships &amp; graph topology:</div><div style="margin:6px 0 2px 0; display:flex; gap:6px; align-items:center; flex-wrap:wrap;"><span style="font-size:10px; color:#94A3B8; font-weight:700;">PDF Try This:</span><button class="btn btn-outline btn-sm" onclick="document.getElementById('graphStartNodeInput').value='GitHubActions'; document.getElementById('graphHopSelect').value='3'; runTest(14);" style="font-size:10px; padding:2px 8px;" type="button">💡 20 Verified Document Facts &amp; Edges</button></div>
 <div style="display:flex; gap:6px; flex-wrap:wrap; margin:2px 0;">
 <input id="graphQueryInput" placeholder="Cypher / Graph query..." style="flex:1; min-width:140px; font-size:10px; padding:4px 6px;" type="text" value="MATCH (svc:Service)-[:DEPLOYED_TO]-&gt;(cloud:Cloud) RETURN svc, cloud"/>
 <select id="graphHopSelect" style="font-size:10px; padding:4px 6px;">
