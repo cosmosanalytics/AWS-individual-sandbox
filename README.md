@@ -19,8 +19,8 @@ Because this repository is public, **every individual test app and the index hub
 - Combines **1 live AWS ping in `us-east-2`** (measuring roundtrip latency and returning AWS Lambda request ID) with **14 client-side architectural contract evaluations**.
 - **100% Verifiable GitHub Artifacts**:
   - CI/CD Actions Run: [`Run #39422342144`](https://github.com/cosmosanalytics/AWS/actions/runs/39422342144) (HTTP 200 OK)
-  - Production Main Head: [`Commit #39a82f8`](https://github.com/cosmosanalytics/AWS/commit/39a82f8313e0d30079741b5e90505131ce0da495) (HTTP 200 OK)
-  - Sandbox Head Commit: [`Commit #9180449`](https://github.com/cosmosanalytics/AWS-individual-sandbox/commit/9180449) (HTTP 200 OK)
+  - Production Main Head: [`Commit #5abc7f6`](https://github.com/cosmosanalytics/AWS/commit/5abc7f635ba77fe0d76b97aedac6cf2b79f6bbd7) (HTTP 200 OK)
+  - Sandbox Head Commit: [Commit #588fbfa](https://github.com/cosmosanalytics/AWS-individual-sandbox/commit/588fbfa4408f9e305c76e4407fa996a257246c37) (HTTP 200 OK)
   - Isolated Feature Branch: [`feat/test-pr`](https://github.com/cosmosanalytics/AWS/tree/feat/test-pr) (HTTP 200 OK)
 - **Cryptographic Bit-for-Bit Hashes (Test 12)**:
   - Clean Payload SHA-256: `2f5f50ae58809f059bfc20690bb8c9b33d7243a1dd739be2eca3c082dbb1a759`
@@ -40,7 +40,7 @@ Because this repository is public, **every individual test app and the index hub
 
 ### Module A: Git / PR Automation
 - **Test 01**: [`mod_a_test_01_git_push.html`](mod_a_test_01_git_push.html) — `git push sandbox/main-sync` (Push File via Lambda to GitHub `sandbox/main-sync` branch)
-- **Test 02**: [`mod_a_test_02_pull_request.html`](mod_a_test_02_pull_request.html) — Pull Request Gate (Initiate isolated branch `feat/test-pr` & open PR #2 while keeping `main` untouched at `#39a82f8`)
+- **Test 02**: [`mod_a_test_02_pull_request.html`](mod_a_test_02_pull_request.html) — Pull Request Gate (Initiate isolated branch `feat/test-pr` & open PR #2 while keeping `main` untouched at `#5abc7f6`)
 
 ### Module B: 4 GitHub CI/CD Action Jobs
 - **Test 03**: [`mod_b_test_03_ast_review.html`](mod_b_test_03_ast_review.html) — Action Job 1 (AI AST Syntax Review & Claude Sonnet 4.6 Spec Audit)
@@ -50,7 +50,7 @@ Because this repository is public, **every individual test app and the index hub
 
 ### Module C: GitHub ⟷ AWS 3-Way Bridge
 - **Test 07**: [`mod_c_test_07_github_to_aws_push.html`](mod_c_test_07_github_to_aws_push.html) — Connection ① (GitHub ➔ AWS Forward Push Trigger Channel, exec-sfn-78a2f4c9)
-- **Test 08**: [`mod_c_test_08_github_to_aws_pull.html`](mod_c_test_08_github_to_aws_pull.html) — Connection ② (GitHub ➔ AWS Reverse Telemetry Pull Channel, SHA #39a82f8 & Run #39422342144)
+- **Test 08**: [`mod_c_test_08_github_to_aws_pull.html`](mod_c_test_08_github_to_aws_pull.html) — Connection ② (GitHub ➔ AWS Reverse Telemetry Pull Channel, SHA #5abc7f6 & Run #39422342144)
 - **Test 09**: [`mod_c_test_09_aws_to_github_return.html`](mod_c_test_09_aws_to_github_return.html) — Connection ③ (AWS ➔ GitHub Step Functions & Bedrock Claude Sonnet 4.6 Return Channel)
 
 ### Module D: Shield & Bedrock AI Dispatch

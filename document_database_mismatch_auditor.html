@@ -448,7 +448,7 @@
           <option value="f09_scalar">F09 Scalar: $5.00 ➔ $50.00 Cap</option>
           <option value="f02_negation">F02 Negation: NOT in us-east-1 ➔ In us-east-1</option>
           <option value="f14_count">F14 Count: 48 CI checks ➔ 40 checks</option>
-          <option value="f18_sha">F18 SHA: Commit #39a82f8 ➔ #39a82f9</option>
+          <option value="f18_sha">F18 SHA: Commit #5abc7f6 ➔ #39a82f9</option>
         </select>
       </div>
       <button type="button" class="btn btn-outline" style="border:1.5px solid #0284C7; color:#0284C7; font-weight:800;" onclick="toggleHybridRescue()">🔵 Toggle Hybrid Filter</button>
@@ -572,7 +572,7 @@
 2. Regional workloads are NOT in us-east-1. Global CloudFront edges route specifically to us-east-2.
 3. Every API call requires an SHA-256 HMAC Owner Passcode header. Unauthorized probes return HTTP 401.
 4. The cloud compute spend ceiling is strictly limited to $5.00 per session to prevent drift.
-5. GitHub Actions pushes hello.txt to branch sandbox/main-sync (commit #a41f89c), leaving main untouched at #39a82f8.
+5. GitHub Actions pushes hello.txt to branch sandbox/main-sync (commit #f1892af), leaving main untouched at #5abc7f6.
 6. The test suite executes exactly 48 deterministic CI matrix assertions.
 7. Model dispatch routes to Amazon Bedrock Claude Sonnet 4.6 generating 84 tokens at 1,240ms latency.
 8. Amazon S3 PutObject stores a 74-byte JSON payload with KMS SSE encryption and verified SHA-256 hash.`,
@@ -594,8 +594,8 @@
         { id: "F15", text: "Secret Shield scans 15 files with 0 credential leaks", chunk: "supported", graph: "supported", top5: "supported" },
         { id: "F16", text: "AST review validates 24/24 Claude Sonnet 4.6 syntax nodes", chunk: "supported", graph: "supported", top5: "supported" },
         { id: "F17", text: "Workloads confined exclusively to region us-east-2", chunk: "supported", graph: "supported", top5: "supported" },
-        { id: "F18", text: "Production branch main untouched at commit #39a82f8", chunk: "supported", graph: "supported", top5: "supported" },
-        { id: "F19", text: "Push branch isolated to sandbox/main-sync (#a41f89c)", chunk: "supported", graph: "supported", top5: "supported" },
+        { id: "F18", text: "Production branch main untouched at commit #5abc7f6", chunk: "supported", graph: "supported", top5: "supported" },
+        { id: "F19", text: "Push branch isolated to sandbox/main-sync (#f1892af)", chunk: "supported", graph: "supported", top5: "supported" },
         { id: "F20", text: "3-Knock preflight probe enforces security state machine", chunk: "supported", graph: "supported", top5: "supported" }
       ]
     };
@@ -731,7 +731,7 @@
       if (f09) { f09.text = "Cloud budget ceiling is strictly capped at $5.00"; delete f09.perturbed; f09.scalarPerturbed = false; }
       if (f02) { f02.text = "Regional workloads strictly confined to us-east-2; zero footprint in us-east-1"; delete f02.perturbed; }
       if (f14) { f14.text = "GitHub Actions CI matrix enforces 48 deterministic test assertions"; delete f14.perturbed; }
-      if (f18) { f18.text = "Production branch main strictly locked at release commit #39a82f8"; delete f18.perturbed; }
+      if (f18) { f18.text = "Production branch main strictly locked at release commit #5abc7f6"; delete f18.perturbed; }
 
       window._f09Perturbed = (window.activeSemanticProbe === "f09_scalar");
 
@@ -757,9 +757,9 @@
       } else if (window.activeSemanticProbe === "f18_sha") {
         if (f18) {
           f18.text = "Production branch main strictly locked at release commit #39a82f9 (SHA Mutation)";
-          f18.perturbed = { type: "sha", label: "Commit SHA Mutation (#39a82f8 vs #39a82f9)", docVal: "#39a82f8", claimVal: "#39a82f9" };
+          f18.perturbed = { type: "sha", label: "Commit SHA Mutation (#5abc7f6 vs #39a82f9)", docVal: "#5abc7f6", claimVal: "#39a82f9" };
         }
-        appendLog("[SEMANTIC PROBE: SHA] Fact F18 altered: '#39a82f8' ➔ '#39a82f9'. Ground-truth release tag is #39a82f8.");
+        appendLog("[SEMANTIC PROBE: SHA] Fact F18 altered: '#5abc7f6' ➔ '#39a82f9'. Ground-truth release tag is #5abc7f6.");
       } else {
         appendLog("[SEMANTIC PROBE: RESTORED] All semantic probes cleared. All 20 invariants match ground-truth baseline.");
       }
@@ -837,8 +837,8 @@
         F15: "Secret Shield scans 15 files with 0 credential leaks.",
         F16: "AST review validates 24/24 Claude Sonnet 4.6 syntax nodes.",
         F17: "All cloud compute confined exclusively to region us-east-2.",
-        F18: "Production branch main remains untouched at commit #39a82f8.",
-        F19: "Active push branch isolated to sandbox/main-sync (#a41f89c).",
+        F18: "Production branch main remains untouched at commit #5abc7f6.",
+        F19: "Active push branch isolated to sandbox/main-sync (#f1892af).",
         F20: "3-Knock preflight probe enforces zero-trust security state transitions."
       };
 
@@ -1197,8 +1197,8 @@
           { id: "F15", status: "SUPPORTED", quote: "Secret Shield scans 15 files with 0 credential leaks.", reason: "Regex scanner confirms zero AWS secrets across 15 files." },
           { id: "F16", status: "SUPPORTED", quote: "AST review validates 24/24 Claude Sonnet 4.6 syntax nodes.", reason: "Syntax tree traversal matches expected structural grammar." },
           { id: "F17", status: "SUPPORTED", quote: "All cloud compute confined exclusively to region us-east-2.", reason: "Regional policy gate locks deployments strictly to us-east-2." },
-          { id: "F18", status: isF18Sha ? "FLAGGED: SHA MUTATION ✗" : "SUPPORTED", quote: "Production branch main remains untouched at commit #39a82f8.", reason: isF18Sha ? "Commit SHA drift caught by Claude Sonnet 4.6: Database claims commit #39a82f9, but ground truth release ref is immutably pinned to #39a82f8." : "Git ref main points to #39a82f8 (zero push drift)." },
-          { id: "F19", status: "SUPPORTED", quote: "Active push branch isolated to sandbox/main-sync (#a41f89c).", reason: "Git ref sandbox/main-sync updated to commit #a41f89c." },
+          { id: "F18", status: isF18Sha ? "FLAGGED: SHA MUTATION ✗" : "SUPPORTED", quote: "Production branch main remains untouched at commit #5abc7f6.", reason: isF18Sha ? "Commit SHA drift caught by Claude Sonnet 4.6: Database claims commit #39a82f9, but ground truth release ref is immutably pinned to #5abc7f6." : "Git ref main points to #5abc7f6 (zero push drift)." },
+          { id: "F19", status: "SUPPORTED", quote: "Active push branch isolated to sandbox/main-sync (#f1892af).", reason: "Git ref sandbox/main-sync updated to commit #f1892af." },
           { id: "F20", status: "SUPPORTED", quote: "3-Knock preflight probe enforces zero-trust security state transitions.", reason: "State machine transitions 401 -> 401 -> 200 verified." }
         ];
 
@@ -1218,7 +1218,7 @@
           if (window.activeSemanticProbe === "f09_scalar") probeDesc = "F09 ($5.00 doc vs $50.00 claim — scalar 10x deviation)";
           else if (window.activeSemanticProbe === "f02_negation") probeDesc = "F02 ('NO workloads in us-east-1' doc vs 'deployed in us-east-1' claim — negation inversion)";
           else if (window.activeSemanticProbe === "f14_count") probeDesc = "F14 (48 assertions doc vs 40 assertions claim — count drift)";
-          else if (window.activeSemanticProbe === "f18_sha") probeDesc = "F18 (Commit #39a82f8 doc vs #39a82f9 claim — commit SHA drift)";
+          else if (window.activeSemanticProbe === "f18_sha") probeDesc = "F18 (Commit #5abc7f6 doc vs #39a82f9 claim — commit SHA drift)";
 
           appendLog("----------------------------------------------------------------------------------------------------");
           appendLog("[AI JUDGE SENSITIVITY CHECK: LIVE ACTIVE PROBE]");
@@ -1230,7 +1230,7 @@
           appendLog("  1. SCALAR PROBE (F09: $5.00 doc vs $50.00 claim)       ➔ [CAUGHT BY BEDROCK: 10x deviation]");
           appendLog("  2. NEGATION PROBE (F02: 'NO in us-east-1' vs 'deployed') ➔ [CAUGHT BY BEDROCK: Polarity flip]");
           appendLog("  3. COUNT PROBE (F14: 48 CI checks vs 40 checks)         ➔ [CAUGHT BY BEDROCK: Threshold drift]");
-          appendLog("  4. COMMIT SHA PROBE (F18: #39a82f8 vs #39a82f9)         ➔ [CAUGHT BY BEDROCK: SHA mutation]");
+          appendLog("  4. COMMIT SHA PROBE (F18: #5abc7f6 vs #39a82f9)         ➔ [CAUGHT BY BEDROCK: SHA mutation]");
           appendLog("----------------------------------------------------------------------------------------------------");
           appendLog("[ENGINE CAPABILITY BREAKDOWN: DETERMINISTIC RULES VS AI JUDGE]");
           appendLog("  • Count (F14) & SHA (F18): A deterministic field/regex diff ($0.00) can catch exact numeric/hash changes without LLM inference.");

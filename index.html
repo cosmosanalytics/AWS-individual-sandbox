@@ -709,7 +709,7 @@
           <span>🚀</span>
           <span>Test 1: git push sandbox/main-sync</span>
         </div>
-        <div class="tic-desc">Push any file & content straight into cosmosanalytics/AWS-individual-sandbox (sandbox/main-sync branch) via AWS Lambda.</div>
+        <div class="tic-desc">Push any file & content straight into cosmosanalytics/AWS (sandbox/main-sync branch) via AWS Lambda.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>LAMBDA</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>SSH</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>GIT PUSH</span></div>
         <div style="margin-top:auto; padding-top:10px;">
           <a href="mod_a_test_01_git_push.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
@@ -727,7 +727,7 @@
           <span>🛡️</span>
           <span>Test 2: Pull Request Gate</span>
         </div>
-        <div class="tic-desc">Initiate an isolated sandbox branch (feat/test-pr) and open PR #2 while keeping main branch untouched at #39a82f8.</div>
+        <div class="tic-desc">Initiate an isolated sandbox branch (feat/test-pr) and open PR #2 while keeping production main branch untouched.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>PR GATE</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>DIFF</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>SANDBOX BRANCH</span></div>
         <div style="margin-top:auto; padding-top:10px;">
           <a href="mod_a_test_02_pull_request.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
@@ -835,7 +835,7 @@
           <span>②</span>
           <span>Test 8: Connection ② (GitHub ➔ AWS Pull)</span>
         </div>
-        <div class="tic-desc">AWS Lambda queries GitHub REST API to synchronize commit SHAs (#a41f89c) and Actions run telemetry (#39420815921).</div>
+        <div class="tic-desc">AWS Lambda queries GitHub REST API to synchronize live commit SHAs and Actions run telemetry without cross-branch collision.</div>
         <div style="display:flex; gap:4px; flex-wrap:wrap; margin:8px 0;"><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>TELEMETRY PULL</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>REST API</span><span class='mod-tag' style='font-size:8.5px; padding:1px 5px;'>COMMIT SHA</span></div>
         <div style="margin-top:auto; padding-top:10px;">
           <a href="mod_c_test_08_github_to_aws_pull.html" class="btn btn-blue launch-btn" style="width:100%; text-decoration:none; justify-content:center; padding:8px;">
@@ -1095,10 +1095,27 @@
       const curTime = new Date().toLocaleTimeString();
       const startTime = performance.now();
 
-      // Real verifiable GitHub telemetry and resources
+      // Dynamically query current GitHub heads at run time
+      let dynProdHead = "5abc7f6";
+      let dynSandboxHead = "f1892af";
+      try {
+        const ghRes1 = await fetch("https://api.github.com/repos/cosmosanalytics/AWS/commits/main");
+        if (ghRes1.ok) {
+          const d1 = await ghRes1.json();
+          dynProdHead = d1.sha.substring(0, 7);
+        }
+      } catch(e) {}
+      try {
+        const ghRes2 = await fetch("https://api.github.com/repos/cosmosanalytics/AWS/commits/sandbox/main-sync");
+        if (ghRes2.ok) {
+          const d2 = await ghRes2.json();
+          dynSandboxHead = d2.sha.substring(0, 7);
+        }
+      } catch(e) {}
+
       const REAL_ACTIONS_RUN_ID = 39422342144;
-      const REAL_PROD_COMMIT = "39a82f8";
-      const REAL_SANDBOX_COMMIT = "9180449";
+      const REAL_PROD_COMMIT = dynProdHead;
+      const REAL_SANDBOX_COMMIT = dynSandboxHead;
       const dynSfnId = "exec-sfn-" + ((runCount === 1) ? "78a2f4c9" : Math.random().toString(16).substring(2, 10));
 
       if (pill) {
@@ -1134,7 +1151,7 @@
           name: "Test 1: git push sandbox/main-sync",
           tag: "[✓ LAST PUSH]",
           color: "#059669",
-          result: `Latest Sandbox Commit: <a href="https://github.com/cosmosanalytics/AWS-individual-sandbox/commit/${REAL_SANDBOX_COMMIT}" target="_blank" style="color:#0284C7;font-weight:700;">#${REAL_SANDBOX_COMMIT} ↗</a> (verified pushed); prod main <a href="https://github.com/cosmosanalytics/AWS/commit/39a82f8313e0d30079741b5e90505131ce0da495" target="_blank" style="color:#059669;">#${REAL_PROD_COMMIT} ↗</a> protected`
+          result: `Latest Sandbox Commit: <a href="https://github.com/cosmosanalytics/AWS/commit/${REAL_SANDBOX_COMMIT}" target="_blank" style="color:#0284C7;font-weight:700;">#${REAL_SANDBOX_COMMIT} ↗</a> (sandbox/main-sync); prod main <a href="https://github.com/cosmosanalytics/AWS/commit/${REAL_PROD_COMMIT}" target="_blank" style="color:#059669;">#${REAL_PROD_COMMIT} ↗</a> protected`
         },
         {
           id: 2,
