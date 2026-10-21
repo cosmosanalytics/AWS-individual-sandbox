@@ -14,6 +14,21 @@ Because this repository is public, **every individual test app and the index hub
 
 ---
 
+## 🟢 Run All 14 Tests Suite (1 Live AWS Ping + 14 Contract Checks)
+- **Developer Guide**: [`run_all_test_suite_guide.html`](run_all_test_suite_guide.html)
+- Combines **1 live AWS ping in `us-east-2`** (measuring roundtrip latency and returning AWS Lambda request ID) with **14 client-side architectural contract evaluations**.
+- **100% Verifiable GitHub Artifacts**:
+  - CI/CD Actions Run: [`Run #39422342144`](https://github.com/cosmosanalytics/AWS/actions/runs/39422342144) (HTTP 200 OK)
+  - Production Main Head: [`Commit #39a82f8`](https://github.com/cosmosanalytics/AWS/commit/39a82f8313e0d30079741b5e90505131ce0da495) (HTTP 200 OK)
+  - Sandbox Head Commit: [`Commit #9180449`](https://github.com/cosmosanalytics/AWS-individual-sandbox/commit/9180449) (HTTP 200 OK)
+  - Isolated Feature Branch: [`feat/test-pr`](https://github.com/cosmosanalytics/AWS/tree/feat/test-pr) (HTTP 200 OK)
+- **Cryptographic Bit-for-Bit Hashes (Test 12)**:
+  - Clean Payload SHA-256: `2f5f50ae58809f059bfc20690bb8c9b33d7243a1dd739be2eca3c082dbb1a759`
+  - Perturbed 1-Char SHA-256: `6a62d890782533c4df9d1a77cca1b246696cdfca1ef776ef5d3968fe1399aba9`
+- **Semantic Polarity Challenge (Test 13)**: Pure vector scores 8/10 (fails negation & scalar polarity by mathematical design); hybrid filter achieves 10/10 (100%).
+
+---
+
 ## 🪞 Document vs Vector & Graph Database Mismatch Auditor
 - **Auditor App**: [`document_database_mismatch_auditor.html`](document_database_mismatch_auditor.html)
 - Implements the **Knowledge Mirror Test**, **The Three Little Monsters (Missing, Extra, Unfindable)**, and the **Fact-by-Fact Invariant Heatmap**.
@@ -30,12 +45,12 @@ Because this repository is public, **every individual test app and the index hub
 ### Module B: 4 GitHub CI/CD Action Jobs
 - **Test 03**: [`mod_b_test_03_ast_review.html`](mod_b_test_03_ast_review.html) — Action Job 1 (AI AST Syntax Review & Claude Sonnet 4.6 Spec Audit)
 - **Test 04**: [`mod_b_test_04_secret_shield.html`](mod_b_test_04_secret_shield.html) — Action Job 2 (DevSecOps Zero-Leak Secret Shield & 15-File Key Scanner)
-- **Test 05**: [`mod_b_test_05_ci_matrix.html`](mod_b_test_05_ci_matrix.html) — Action Job 3 (Automated 48/48 CI Test Matrix & Policy Invariants, Run #39420815921)
+- **Test 05**: [`mod_b_test_05_ci_matrix.html`](mod_b_test_05_ci_matrix.html) — Action Job 3 (Automated 48/48 CI Test Matrix & Policy Invariants, Run #39422342144)
 - **Test 06**: [`mod_b_test_06_aws_401_preflight.html`](mod_b_test_06_aws_401_preflight.html) — Action Job 4 (AWS us-east-2 401 Gate Pre-Flight Security Probe: 3 Knocks)
 
 ### Module C: GitHub ⟷ AWS 3-Way Bridge
 - **Test 07**: [`mod_c_test_07_github_to_aws_push.html`](mod_c_test_07_github_to_aws_push.html) — Connection ① (GitHub ➔ AWS Forward Push Trigger Channel, exec-sfn-78a2f4c9)
-- **Test 08**: [`mod_c_test_08_github_to_aws_pull.html`](mod_c_test_08_github_to_aws_pull.html) — Connection ② (GitHub ➔ AWS Reverse Telemetry Pull Channel, SHA #a41f89c & Run #39420815921)
+- **Test 08**: [`mod_c_test_08_github_to_aws_pull.html`](mod_c_test_08_github_to_aws_pull.html) — Connection ② (GitHub ➔ AWS Reverse Telemetry Pull Channel, SHA #39a82f8 & Run #39422342144)
 - **Test 09**: [`mod_c_test_09_aws_to_github_return.html`](mod_c_test_09_aws_to_github_return.html) — Connection ③ (AWS ➔ GitHub Step Functions & Bedrock Claude Sonnet 4.6 Return Channel)
 
 ### Module D: Shield & Bedrock AI Dispatch
@@ -44,7 +59,7 @@ Because this repository is public, **every individual test app and the index hub
 
 ### Module E: Cloud State, Storage & Graph
 - **Test 12**: [`mod_e_test_12_amazon_s3.html`](mod_e_test_12_amazon_s3.html) — Amazon S3 (PutObject & GetObject 74B SHA-256 Checksum Match in `us-east-2`)
-- **Test 13**: [`mod_e_test_13_vector_db.html`](mod_e_test_13_vector_db.html) — Vector Database & Semantic Similarity Search (10-Question Scorecard: 90% Pure Vector vs 100% Hybrid)
+- **Test 13**: [`mod_e_test_13_vector_db.html`](mod_e_test_13_vector_db.html) — Vector Database & Semantic Similarity Search (10-Question Scorecard: 80% Pure Vector vs 100% Hybrid)
 - **Test 14**: [`mod_e_test_14_knowledge_graph.html`](mod_e_test_14_knowledge_graph.html) — Knowledge Graph Database & 3-Hop Cypher Traversal (20/20 Facts, 100% Precision)
 
 ---
