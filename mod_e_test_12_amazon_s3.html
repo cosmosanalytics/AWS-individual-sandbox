@@ -1728,7 +1728,7 @@
             • <strong>Direction of Information Flow:</strong> <strong>From AWS (<code>us-east-2</code>) ➔ Back to GitHub App!</strong><br>
             • <strong style="color:#1D4ED8;">📥 INPUT:</strong> Note: "${promptNote.replace(/</g, '&lt;')}" • Model: <code>${modelId}</code>.<br>
             • <strong style="color:#6D28D9;">⚙️ PROCESS:</strong> Bedrock Converse API + Step Functions execution + S3 PutObject artifact.<br>
-            • <strong style="color:#047857;">📤 OUTPUT:</strong> Cryptographic signed receipt returned to browser: <code>${data.s3_artifact_uri}</code><br>
+            • <strong style="color:#047857;">📤 OUTPUT:</strong> Cryptographic signed receipt returned to browser: <code>${(data.s3_artifact_uri || "").replace(/\d{8}(\d{4})/g, "********$1")}</code><br>
             • <strong>Live Bedrock (${data.bedrock?.latency_ms}ms):</strong> <em>"${(data.bedrock?.text || '').replace(/</g, '&lt;')}"</em>
           `);
           appendLog(`[TEST 9 PASS] Live AWS -> GitHub receipt returned: ${data.execution_id} (${data.bedrock?.latency_ms}ms).`);
@@ -2850,7 +2850,7 @@
             if (resp.ok) {
               const data = await resp.json();
               liveExecId = data.execution_id;
-              liveSfnArn = (data.sfn_execution_arn || "").replace(/:\d{8}(\d{4}):/g, ":********$1:");
+              liveSfnArn = (data.sfn_execution_arn || "").replace(/\d{8}(\d{4})/g, "********$1");
               window._liveSfnArnReal = data.sfn_execution_arn;
               liveReqId = data.lambda_request_id || resp.headers.get("x-amzn-RequestId");
               isRealAws = true;
@@ -2967,7 +2967,7 @@
             });
             if (resp.ok) {
               const data = await resp.json();
-              liveReceiptUri = (data.s3_artifact_uri || "").replace(/:\d{8}(\d{4}):/g, ":********$1:");
+              liveReceiptUri = (data.s3_artifact_uri || "").replace(/\d{8}(\d{4})/g, "********$1");
               isRealAws = true;
             }
           } catch(e) {
