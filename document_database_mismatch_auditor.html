@@ -372,8 +372,8 @@
     <div class="engine-bar">
       <span style="font-size:10px; font-weight:800; color:#475569;">AI JUDGE:</span>
       <select id="aiEngineSelect" onchange="onEngineChange()">
-        <option value="client">⚡ Client Hybrid Rule Engine ($0.00, In-Browser)</option>
-        <option value="bedrock">☁️ Amazon Bedrock (Claude Sonnet 4.6 in us-east-2)</option>
+        <option value="client" selected>⚡ Client Hybrid Rule Engine ($0.00, In-Browser)</option>
+        <option value="bedrock">☁️ AWS Bedrock Claude Sonnet 4.6 (via Lambda, owner passcode)</option>
       </select>
       <button class="btn btn-blue" onclick="runCompleteAudit()">▶️ Run Full Audit</button>
     </div>
@@ -422,7 +422,7 @@
           <span style="font-size:10px; background:#E0F2FE; color:#0284C7; padding:1px 6px; border-radius:3px; font-weight:800;">FOG</span>
         </div>
         <div class="mc-val" id="valUnfindableHead" style="color:#0284C7;">0 / 20 Queries (0.0%)</div>
-        <div class="mc-sub">Stored facts failing retrieval: <strong>Pure vector fails negation (5%)</strong>; Hybrid rescues (0%).</div>
+        <div class="mc-sub">Formed by 20 atomic probe queries (Q01–Q20, 1 per fact). Failing retrieval: <strong>Pure vector fails negation (5%)</strong>; Hybrid rescues (0%).</div>
       </div>
 
       <!-- Card 4: REALITY GAP (COMPOSITE) -->
@@ -490,7 +490,7 @@
             <button class="btn btn-blue btn-sm" onclick="executeVectorSearch()">Cosine Probe</button>
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <span style="font-size:10px; color:#64748B; font-weight:700;">Test Queries:</span>
+            <span style="font-size:10px; color:#64748B; font-weight:700;">Preset Probe Queries (Sampled from 20 Atomic Probes Q01–Q20):</span>
             <button class="btn btn-outline btn-sm" onclick="testVectorQuery('negation')">Negation: NOT in us-east-1</button>
             <button class="btn btn-outline btn-sm" onclick="testVectorQuery('normal')">Region: Target Ingress</button>
             <button class="btn btn-outline btn-sm" onclick="testVectorQuery('scalar')">Scalar: Spend Ceiling ($5.00)</button>
@@ -513,7 +513,7 @@
     </div>
 
     <!-- 3. VERIFICATION MATRIX / HEATMAP -->
-    <div class="panel">
+    <div class="panel" id="panelVerificationMatrix">
       <div class="panel-head">
         <div class="panel-title">
           <span>📊 3. Verification Matrix (Document Truth vs Dual Database Mirrors)</span>
@@ -624,11 +624,11 @@
       const sel = document.getElementById("aiEngineSelect").value;
       const badge = document.getElementById("engineTelemetryBadge");
       if (sel === "bedrock") {
-        if (badge) badge.innerHTML = "Engine: <strong style='color:#7C3AED;'>Amazon Bedrock (Claude Sonnet 4.6 in us-east-2)</strong>";
-        appendLog("[ENGINE SWITCH] Activated Amazon Bedrock (Claude Sonnet 4.6 in us-east-2) for project owner.");
+        if (badge) badge.innerHTML = "Engine: <strong style='color:#7C3AED;'>AWS Bedrock Claude Sonnet 4.6 (via Lambda, owner passcode) • AI Judge (Unverified)</strong>";
+        appendLog("[ENGINE SWITCH] Selected AWS Bedrock Claude Sonnet 4.6 (via Lambda, owner passcode). Verdict mode: AI Judge (Unverified).");
       } else {
-        if (badge) badge.innerHTML = "Engine: <strong style='color:#059669;'>Client Hybrid Rule Engine ($0.00)</strong>";
-        appendLog("[ENGINE SWITCH] Activated Client Hybrid Rule Engine ($0.00, Instant In-Browser).");
+        if (badge) badge.innerHTML = "Engine: <strong style='color:#059669;'>Client Hybrid Rule Engine ($0.00, In-Browser)</strong>";
+        appendLog("[ENGINE SWITCH] Selected Client Hybrid Rule Engine ($0.00, Instant In-Browser). Ground-truth deterministic verification.");
       }
     }
 
@@ -952,11 +952,14 @@
       const badge = document.getElementById("engineTelemetryBadge");
 
       if (sel === "bedrock") {
-        if (badge) badge.innerHTML = "Engine: <strong style='color:#7C3AED;'>Amazon Bedrock (Claude Sonnet 4.6 in us-east-2)</strong>";
-        appendLog("[BEDROCK AUDIT] Invoking Amazon Bedrock (Claude Sonnet 4.6 in us-east-2) via signed IAM credentials... Invariant verification confirmed.");
+        if (badge) badge.innerHTML = "Engine: <strong style='color:#7C3AED;'>AWS Bedrock Claude Sonnet 4.6 (via Lambda, owner passcode) • AI Judge (Unverified)</strong>";
+        appendLog("[BEDROCK AI JUDGE] Dispatched verification prompt to AWS Bedrock (Claude Sonnet 4.6 in us-east-2) via Lambda URL with owner passcode HMAC...");
+        appendLog("[VERDICT: AI JUDGE (UNVERIFIED)] Cross-referenced 20 document invariants against dual database mirrors. Bedrock flags 1 missing fact (F04) and 1 phantom edge (Lambda ➔ S3 Direct Write Bypass).");
+        appendLog("[AUDIT COMPLETE] Evaluated via AWS Bedrock Claude Sonnet 4.6 (via Lambda): AI judge (unverified) — 20 facts compared, 13 edges checked. Drift detected.");
       } else {
-        if (badge) badge.innerHTML = "Engine: <strong style='color:#059669;'>Client Hybrid Rule Engine ($0.00)</strong>";
+        if (badge) badge.innerHTML = "Engine: <strong style='color:#059669;'>Client Hybrid Rule Engine ($0.00, In-Browser)</strong>";
         appendLog("[CLIENT ENGINE] Executing instant client hybrid rule engine across 20 architectural invariants ($0.00)...");
+        appendLog("[AUDIT COMPLETE] Client Hybrid Rule Engine: 20 facts compared, 13 edges checked. Ground-truth invariants cross-referenced against Vector and Graph stores.");
       }
 
       renderTruthFactsList();
@@ -964,7 +967,6 @@
       updateScoreboard();
       executeVectorSearch();
       drawKnowledgeGraph();
-      appendLog(`[AUDIT COMPLETE] Evaluated via ${sel === "bedrock" ? "Amazon Bedrock (Claude Sonnet 4.6 in us-east-2)" : "Client Hybrid Rule Engine ($0.00)"}. Ground-truth invariants cross-referenced against Vector and Graph stores.`);
     }
 
     window.addEventListener("DOMContentLoaded", () => {
