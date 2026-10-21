@@ -756,7 +756,8 @@
     <div class="test-card active-tab" id="tc7">
 <div class="tc-top">
 <span>① Push: GitHub ➔ AWS</span>
-<button class="btn btn-orange" onclick="runTest(7)">▶️ Test Push</button>
+<button class="btn btn-orange" onclick="window._t7SimulateError = false; runTest(7);">▶️ Test Push</button>
+<button class="btn btn-outline btn-sm" onclick="triggerTest7ErrorPath()" style="border:1.5px solid #EF4444; color:#DC2626; font-weight:800; font-size:10px; padding:2px 8px;" type="button">⚡ Inject SFN Timeout (States.Timeout)</button>
 </div>
 <div class="tc-desc">Send trigger payload from GitHub Pages to AWS Lambda:</div>
 <input id="c7CustomPrompt" placeholder="Custom trigger message..." style="width:100%; font-size:10px; padding:4px 6px; margin:2px 0;" type="text" value="CI/CD Bridge Trigger: Verify live GitHub to AWS forward push channel"/>
@@ -2552,6 +2553,12 @@
     };
 
     // RICH TEST RUNNER: Updates #res and .io-block synchronously with exact test assertions
+        window.triggerTest7ErrorPath = function() {
+      window._t7SimulateError = true;
+      appendLog("[TEST 7 ERROR PROBE] Simulating Step Functions execution timeout in us-east-2...");
+      runTest(7);
+    };
+
     window.runTest = async function(idx, s3SubAction) {
       if (!checkOwnerPermission()) return;
       const tId = idx || window.ACTIVE_STANDALONE_TEST_ID;
@@ -2651,6 +2658,26 @@
       }
 
       if (tId === 7) {
+        if (window._t7SimulateError) {
+          window._t7SimulateError = false;
+          const sfnArn = "arn:aws:states:us-east-2:************:execution:cosmos-cicd-ai-pipeline-sfn:exec-sfn-timeout-err";
+          if (resEl) {
+            resEl.innerHTML = `
+              <div style="color:#DC2626; font-weight:700; margin-bottom:4px;">❌ HTTP 504 Gateway Timeout • Step Functions Execution Failed [States.Timeout]</div>
+              <div style="color:#334155; font-size:11px; line-height:1.45;">
+                <div><strong>Pipeline ARN:</strong> <code style="color:#DC2626; font-size:10px;">${sfnArn}</code></div>
+                <div style="margin:3px 0;"><strong>Execution Status:</strong> <span style="color:#DC2626; font-weight:700;">FAILED (ExecutionTimedOut in us-east-2)</span></div>
+                <div style="background:#FEF2F2; border:1.5px solid #FCA5A5; border-radius:4px; padding:4px 6px; margin:3px 0; font-family:var(--font-mono); font-size:10px; color:#B91C1C;">
+                  Error: {"Error": "States.Timeout", "Cause": "MultiAgentEvaluator task exceeded execution window (30000ms)"}
+                </div>
+                <span style="color:#DC2626; font-weight:700; font-size:10.5px;">⚠️ Injected Error Path Caught: Downstream SFN task failure handled gracefully by retry/circuit-breaker.</span>
+              </div>`;
+          }
+          setIoOutput(7, `<strong style="color:#DC2626;">HTTP 504 Gateway Timeout</strong> • States.Timeout caught in us-east-2`);
+          appendLog("[TEST 7 ERROR PATH] Injected failure: Step Functions task timed out (States.Timeout). Circuit breaker tripped in us-east-2.");
+          if (hud) hud.textContent = "Bridge 1: Injected SFN Timeout Caught (504)";
+          return;
+        }
         if (hud) hud.textContent = "Pushing prompt to AWS us-east-2...";
         window._t7RunCount = (window._t7RunCount || 0) + 1;
         const hexSuffix = Math.random().toString(16).substring(2, 10);

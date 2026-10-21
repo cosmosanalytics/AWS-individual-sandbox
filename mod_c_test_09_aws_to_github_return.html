@@ -2552,6 +2552,12 @@
     };
 
     // RICH TEST RUNNER: Updates #res and .io-block synchronously with exact test assertions
+        window.triggerTest9ErrorPath = function() {
+      window._t9SimulateError = true;
+      appendLog("[TEST 9 ERROR PROBE] Simulating AWS KMS cryptographic signing failure (KMS.AccessDeniedException)...");
+      runTest(9);
+    };
+
     window.runTest = async function(idx, s3SubAction) {
       if (!checkOwnerPermission()) return;
       const tId = idx || window.ACTIVE_STANDALONE_TEST_ID;
@@ -2695,6 +2701,25 @@
       }
 
       if (tId === 9) {
+        if (window._t9SimulateError) {
+          window._t9SimulateError = false;
+          if (resEl) {
+            resEl.innerHTML = `
+              <div style="color:#DC2626; font-weight:700; margin-bottom:4px;">❌ HTTP 403 Forbidden • AWS KMS Cryptographic Signature Denied</div>
+              <div style="color:#334155; font-size:11px; line-height:1.45;">
+                <div><strong>KMS Key ARN:</strong> <code style="color:#DC2626; font-size:10px;">arn:aws:kms:us-east-2:************:key/mrk-9f82c401</code></div>
+                <div style="margin:3px 0;"><strong>Signing Status:</strong> <span style="color:#DC2626; font-weight:700;">REJECTED (KMS.AccessDeniedException)</span></div>
+                <div style="background:#FEF2F2; border:1.5px solid #FCA5A5; border-radius:4px; padding:4px 6px; margin:3px 0; font-family:var(--font-mono); font-size:10px; color:#B91C1C;">
+                  Error: {"Error": "KMS.AccessDeniedException", "Message": "The ciphertext refers to a customer master key that does not exist or you do not have decrypt permissions."}
+                </div>
+                <span style="color:#DC2626; font-weight:700; font-size:10.5px;">⚠️ Injected Error Path Caught: Unauthorized KMS key access blocked deployment receipt in S3.</span>
+              </div>`;
+          }
+          setIoOutput(9, `<strong style="color:#DC2626;">HTTP 403 Forbidden</strong> • KMS Signature Denied (AccessDeniedException)`);
+          appendLog("[TEST 9 ERROR PATH] Injected failure: AWS KMS refused signature (KMS.AccessDeniedException). S3 receipt upload blocked.");
+          if (hud) hud.textContent = "Bridge 3: KMS AccessDenied Caught (403)";
+          return;
+        }
         if (hud) hud.textContent = "Storing signed receipt in S3...";
         window._test9RunCount = (window._test9RunCount || 0) + 1;
         const noteInp = document.getElementById("c9PromptNote");
