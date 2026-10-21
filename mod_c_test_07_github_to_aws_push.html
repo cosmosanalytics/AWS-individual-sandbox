@@ -2392,7 +2392,7 @@
           const reqId = resp.headers.get("x-amzn-RequestId") || "79587b0d-4188-4a19-bd2f-ffd0a4a8fc9b";
           const data = await resp.json();
           if (resEl) {
-            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP ${resp.status} OK • Door Unlocked! (Knock 3: Live AWS us-east-2)</div><div style="color:#334155; font-size:11px; line-height:1.4;">Project: <code style="color:#0284C7;">For Each and Every</code> (Region: ${data.region || 'us-east-2'})<br>Lambda: <code>${data.lambda_name || 'cosmos-cicd-ai-orchestrator'}</code> • SFN: <code>${(data.sfn_arn || '').replace(/966273137102/g, '************')}</code><br><span style="color:#64748B; font-size:10px;">x-amzn-RequestId: <code>${reqId}</code> • Passcode Verified: <strong>HTTP ${resp.status}</strong></span></div>`;
+            resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP ${resp.status} OK • Door Unlocked! (Knock 3: Live AWS us-east-2)</div><div style="color:#334155; font-size:11px; line-height:1.4;">Project: <code style="color:#0284C7;">For Each and Every</code> (Region: ${data.region || 'us-east-2'})<br>Lambda: <code>${data.lambda_name || 'cosmos-cicd-ai-orchestrator'}</code> • SFN: <code>${(data.sfn_arn || '').replace(/:\d{8}(\d{4}):/g, ':********$1:')}</code><br><span style="color:#64748B; font-size:10px;">x-amzn-RequestId: <code>${reqId}</code> • Passcode Verified: <strong>HTTP ${resp.status}</strong></span></div>`;
           }
           setIoOutput(6, `<strong style="color:#059669;">HTTP ${resp.status} OK</strong> • Door Unlocked • Real AWS Lambda authorized in us-east-2`);
           if (hud) hud.textContent = `Knock 3: ${resp.status} OK (Live AWS us-east-2 Unlocked)`;
@@ -2830,7 +2830,7 @@
             if (resp.ok) {
               const data = await resp.json();
               liveExecId = data.execution_id;
-              liveSfnArn = (data.sfn_execution_arn || "").replace(/966273137102/g, "************");
+              liveSfnArn = (data.sfn_execution_arn || "").replace(/:\d{8}(\d{4}):/g, ":********$1:");
               window._liveSfnArnReal = data.sfn_execution_arn;
               liveReqId = data.lambda_request_id || resp.headers.get("x-amzn-RequestId");
               isRealAws = true;
@@ -2844,7 +2844,7 @@
         const execId = liveExecId || ((window._t7RunCount === 1) ? "exec-sfn-78a2f4c9" : `exec-sfn-${hexSuffix}`);
         window._latestExecutionId = execId;
         const sfnArn = liveSfnArn || `arn:aws:states:us-east-2:************:execution:cosmos-cicd-ai-pipeline-sfn:${execId}`;
-        const realConsoleArn = window._liveSfnArnReal || sfnArn.replace(/\*\*\*\*\*\*\*\*\*\*\*\*/g, "966273137102");
+        const realConsoleArn = window._liveSfnArnReal || sfnArn;
         const consoleUrl = `https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${realConsoleArn}`;
 
         if (resEl) {
@@ -2947,7 +2947,7 @@
             });
             if (resp.ok) {
               const data = await resp.json();
-              liveReceiptUri = (data.s3_artifact_uri || "").replace(/966273137102/g, "************");
+              liveReceiptUri = (data.s3_artifact_uri || "").replace(/:\d{8}(\d{4}):/g, ":********$1:");
               isRealAws = true;
             }
           } catch(e) {
@@ -3025,7 +3025,7 @@
             if (resp.ok) {
               const data = await resp.json();
               if (data.bedrock && data.bedrock.text) {
-                liveSonnetText = data.bedrock.text;
+                liveSonnetText = (data.bedrock.text || "").replace(/\b\d{8}(\d{4})\b/g, "********$1");
                 liveSonnetMs = data.bedrock.latency_ms;
                 liveSonnetTokens = data.bedrock.usage?.total_tokens || (isAuditPrompt ? 428 : 433);
                 isRealBedrock = true;
