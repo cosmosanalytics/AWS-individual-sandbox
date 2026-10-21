@@ -46,6 +46,13 @@ Because this repository is public, **every individual test app and the index hub
 
 ---
 
+## 💬 Bedrock Chat (HTML-only frontend + AWS Lambda backend)
+- **Chat App**: [`bedrock_chat.html`](bedrock_chat.html)
+- Single static HTML file (no build step) that chats with **Claude Sonnet 4.6 on Amazon Bedrock** through the existing Lambda Function URL in `us-east-2` (`action: "run_cicd_audit"`, reads `bedrock.text`).
+- Uses the same Owner Unlock Gate (`X-Cosmos-Key`, shared `sessionStorage` passcode). Multi-turn context is sent client-side in the prompt (last 12 turns).
+
+---
+
 ## 📂 14 Individual Test Applications
 
 ### Module A: Git / PR Automation
