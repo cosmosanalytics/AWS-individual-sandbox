@@ -102,43 +102,43 @@
       border: 1px solid transparent;
       transition: all 0.15s ease;
     }
-    .btn-blue { background: #0284C7; color: #FFF; border-color: #38BDF8; }
+    .btn-blue { background: #0284C7; color: #0F172A; border-color: #38BDF8; }
     .btn-blue:hover { background: #0369A1; }
-    .btn-purple { background: #7C3AED; color: #FFF; border-color: #A855F7; }
+    .btn-purple { background: #7C3AED; color: #0F172A; border-color: #A855F7; }
     .btn-purple:hover { background: #6D28D9; }
     .btn-outline { background: #1E293B; color: #0F172A; border-color: #334155; }
     .btn-outline:hover { background: #334155; }
 
     /* HERO BANNER */
     .hero-banner {
-      background: linear-gradient(135deg, rgba(2,132,199,0.12) 0%, rgba(124,58,237,0.12) 50%, rgba(15,23,42,0.8) 100%);
-      border-bottom: 2px solid var(--border-color);
-      padding: 20px 24px;
+      background: linear-gradient(135deg, #F0F9FF 0%, #EEF2FF 60%, #F8FAFC 100%);
+      border-bottom: 2px solid #CBD5E1;
+      padding: 22px 28px;
     }
     .hero-kicker {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
-      color: var(--accent-cyan);
+      color: #0284C7;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 4px;
     }
     .hero-title {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 900;
       letter-spacing: -0.03em;
-      color: #FFF;
+      color: #0F172A;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .hero-sub {
-      font-size: 13px;
-      color: #CBD5E1;
-      max-width: 850px;
-      margin-top: 4px;
-      line-height: 1.5;
+      font-size: 13.5px;
+      color: #475569;
+      max-width: 900px;
+      margin-top: 6px;
+      line-height: 1.55;
     }
 
     /* MAIN CONTAINER */
@@ -160,8 +160,8 @@
       gap: 12px;
     }
     .metric-card {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
       border-radius: 8px;
       padding: 12px 14px;
       display: flex;
@@ -169,6 +169,7 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.05);
     }
     .metric-card::before {
       content: '';
@@ -194,7 +195,7 @@
       font-size: 26px;
       font-weight: 900;
       font-family: var(--font-mono);
-      color: #FFF;
+      color: #0F172A;
       margin: 6px 0 2px 0;
     }
     .mc-sub {
@@ -265,13 +266,13 @@
     }
     .game-tab.active {
       background: #0284C7;
-      color: #FFF;
+      color: #0F172A;
       border-color: #38BDF8;
     }
 
     /* FACT-BY-FACT HEATMAP */
     .heatmap-wrap {
-      background: #090E1A;
+      background: #F8FAFC;
       border: 1px solid var(--border-color);
       border-radius: 6px;
       overflow-x: auto;
@@ -321,7 +322,7 @@
     #graphCanvas {
       width: 100%;
       height: 220px;
-      background: #090E1A;
+      background: #F8FAFC;
       border-radius: 6px;
       border: 1px solid var(--border-color);
       display: block;
@@ -332,7 +333,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      background: #090E1A;
+      background: #F8FAFC;
       border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 10px;
@@ -353,7 +354,7 @@
     .monster-dot.blue { background: #0284C7; box-shadow: 0 0 8px #0284C7; }
     .monster-txt strong {
       font-size: 11px;
-      color: #FFF;
+      color: #0F172A;
       display: block;
     }
     .monster-txt span {
@@ -386,7 +387,7 @@
       border: 1px solid #334155;
       cursor: pointer;
     }
-    .preset-pill:hover { background: #0284C7; color: #FFF; border-color: #38BDF8; }
+    .preset-pill:hover { background: #0284C7; color: #0F172A; border-color: #38BDF8; }
 
     footer {
       text-align: center;
@@ -524,7 +525,7 @@
             <label style="font-size:11px; font-weight:700; color:var(--text-muted);">Atomic Human-Checked Facts (Truth Set - 20 Invariants):</label>
             <span style="font-size:10px; color:var(--accent-cyan); font-family:var(--font-mono);" id="factCountLabel">20 Atomic Invariants</span>
           </div>
-          <div style="max-height:160px; overflow-y:auto; background:#090E1A; border:1px solid var(--border-color); border-radius:5px; padding:8px;" id="truthFactsList"></div>
+          <div style="max-height:160px; overflow-y:auto; background: #F8FAFC; border:1px solid var(--border-color); border-radius:5px; padding:8px;" id="truthFactsList"></div>
         </div>
       </div>
 
@@ -556,7 +557,7 @@
             <button class="btn btn-blue" style="font-size:11px;" onclick="executeVectorSearch()">🔍 Probe Vector</button>
           </div>
 
-          <div id="vecResultsBox" style="background:#090E1A; border:1px solid var(--border-color); border-radius:6px; padding:10px; font-size:11px; line-height:1.45;"></div>
+          <div id="vecResultsBox" style="background: #F8FAFC; border:1px solid var(--border-color); border-radius:6px; padding:10px; font-size:11px; line-height:1.45;"></div>
         </div>
 
         <!-- GAME 2 VIEW: GRAPH STORY -->
@@ -566,7 +567,7 @@
             <button class="btn btn-purple" style="font-size:10px; padding:3px 8px;" onclick="simulateGraphTraversal()">🕸️ Multi-Hop Cypher (3 Hops)</button>
           </div>
           <canvas id="graphCanvas" width="600" height="220"></canvas>
-          <div id="graphAuditSummary" style="font-size:10.5px; color:var(--text-muted); line-height:1.4; background:#090E1A; padding:8px; border-radius:5px; border:1px solid var(--border-color);"></div>
+          <div id="graphAuditSummary" style="font-size:10.5px; color:var(--text-muted); line-height:1.4; background: #F8FAFC; padding:8px; border-radius:5px; border:1px solid var(--border-color);"></div>
         </div>
 
       </div>
@@ -738,11 +739,16 @@
 
     function renderTruthFactsList() {
       const list = document.getElementById("truthFactsList");
+      if (!list) return;
       list.innerHTML = "";
       activeData.facts.forEach(f => {
         const item = document.createElement("div");
-        item.style.cssText = "font-size:10.5px; padding:3px 0; border-bottom:1px solid rgba(255,255,255,0.03); display:flex; gap:8px;";
-        item.innerHTML = `<span style="color:#38BDF8; font-family:var(--font-mono); font-weight:700;">[${f.id}]</span> <span>${f.text}</span>`;
+        item.style.cssText = "font-size:11px; padding:4px 6px; border-bottom:1px solid #E2E8F0; display:flex; gap:8px; align-items:center;";
+        const isMissing = (f.chunk === "missing");
+        const statusBadge = isMissing 
+          ? `<span style="font-size:9px; font-weight:800; background:#FEE2E2; color:#DC2626; padding:1px 5px; border-radius:3px;">MISSING</span>` 
+          : `<span style="font-size:9px; font-weight:800; background:#ECFDF5; color:#059669; padding:1px 5px; border-radius:3px;">STORED</span>`;
+        item.innerHTML = `<span style="color:#0284C7; font-family:var(--font-mono); font-weight:800; min-width:32px;">[${f.id}]</span> <span style="color:#0F172A; font-weight:600; flex:1;">${f.text}</span> ${statusBadge}`;
         list.appendChild(item);
       });
     }
@@ -833,7 +839,7 @@
       } else {
         resBox.innerHTML = `
           <div style="color:#10B981; font-weight:800; margin-bottom:4px;">🟢 Top Retrieved Chunks (Cosine Sim &ge; 0.94)</div>
-          <div style="color:#CBD5E1; padding:6px; background:#090E1A; border:1px solid var(--border-color); border-radius:4px;">
+          <div style="color:#CBD5E1; padding:6px; background: #F8FAFC; border:1px solid var(--border-color); border-radius:4px;">
             <strong>Rank #1 [Score 0.962]:</strong> Ingress triggers arrive via HTTPS POST to an AWS Lambda Function URL in us-east-2.<br>
             <strong>Rank #2 [Score 0.948]:</strong> Every API call requires an SHA-256 HMAC Owner Passcode header (HTTP 401 on missing key).<br>
             <strong>Rank #3 [Score 0.912]:</strong> Cloud spend ceiling is strictly limited to $5.00 per session with 48 CI matrix checks.
