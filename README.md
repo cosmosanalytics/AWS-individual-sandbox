@@ -38,9 +38,9 @@ Because this repository is public, **every individual test app and the index hub
 - **Test 08**: [`mod_c_test_08_github_to_aws_pull.html`](mod_c_test_08_github_to_aws_pull.html) — Connection ② (GitHub ➔ AWS Reverse Telemetry Pull Channel, SHA #a41f89c & Run #39420815921)
 - **Test 09**: [`mod_c_test_09_aws_to_github_return.html`](mod_c_test_09_aws_to_github_return.html) — Connection ③ (AWS ➔ GitHub Step Functions & Bedrock Claude Sonnet 4.6 Return Channel)
 
-### Module D: Shield & Multi-Engine AI Dispatch
+### Module D: Shield & Bedrock AI Dispatch
 - **Test 10**: [`mod_d_test_10_cost_shield.html`](mod_d_test_10_cost_shield.html) — Owner Cost Gate (AWS us-east-2 Authorization Gate: Dual Path Knock)
-- **Test 11**: [`mod_d_test_11_multi_engine_ai.html`](mod_d_test_11_multi_engine_ai.html) — Multi-Engine AI Dispatch (Local WebGPU / Groq Llama-3.3-70B / Bedrock Claude Sonnet 4.6)
+- **Test 11**: [`mod_d_test_11_multi_engine_ai.html`](mod_d_test_11_multi_engine_ai.html) — Amazon Bedrock Multi-Model Dispatch (Benchmark Claude Sonnet 4.6, Claude 3.5 Haiku, and Amazon Nova Pro in `us-east-2`)
 
 ### Module E: Cloud State, Storage & Graph
 - **Test 12**: [`mod_e_test_12_amazon_s3.html`](mod_e_test_12_amazon_s3.html) — Amazon S3 (PutObject & GetObject 74B SHA-256 Checksum Match in `us-east-2`)
