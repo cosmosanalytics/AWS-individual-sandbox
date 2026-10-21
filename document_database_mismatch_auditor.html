@@ -199,13 +199,13 @@
       align-items: center;
     }
     .mc-val {
-      font-size: 19px;
+      font-size: 15.5px;
       font-weight: 900;
       font-family: var(--font-mono);
       margin: 6px 0 3px 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.25;
     }
     .mc-sub {
       font-size: 10.5px;
@@ -1023,8 +1023,12 @@
             </div>
             <div style="font-size:10.5px; color:#475569;">Click "Toggle Hybrid Filter" to rescue with structured metadata filter <code>region != 'us-east-1'</code>.</div>
           `;
-          const missingCount = activeData.facts.filter(f => f.chunk === "missing").length;
-          appendLog(`[VECTOR PROBE] Pure vector search: negation failures = 1/20; unretrievable facts = ${missingCount}. Scoreboard Unfindable = ${1 + missingCount}/20.`);
+          const missingChunkCount = activeData.facts.filter(f => f.chunk === "missing").length;
+          const selEngine = document.getElementById("aiEngineSelect") ? document.getElementById("aiEngineSelect").value : "client";
+          const hasSemanticDrift = (window.activeSemanticProbe && window.activeSemanticProbe !== "none");
+          const semanticDriftCount = (selEngine === "bedrock" && hasSemanticDrift) ? 1 : 0;
+          const totalUnfindable = 1 + missingChunkCount + semanticDriftCount;
+          appendLog(`[VECTOR PROBE] Pure vector search: negation failures = 1/20; unretrievable facts = ${missingChunkCount}${semanticDriftCount > 0 ? ' (F04 vanished) + 1 contradicted query (' + getActiveProbeFactId() + ')' : ''}. Scoreboard Unfindable = ${totalUnfindable}/20.`);
         } else {
           resBox.innerHTML = `
             <div style="color:#059669; font-weight:800; margin-bottom:4px;">🟢 Hybrid Retrieval (Vector + Metadata: region != 'us-east-1')</div>
@@ -1033,8 +1037,12 @@
               <span style="color:#047857; font-weight:700;">✓ PASSED: Metadata filter eliminated false positive. Ground-truth passage retrieved with 100% recall.</span>
             </div>
           `;
-          const missingCount = activeData.facts.filter(f => f.chunk === "missing").length;
-          appendLog(`[VECTOR PROBE] Hybrid retrieval: negation failures = 0/20 (rescued via structured filter); unretrievable facts = ${missingCount}. Scoreboard Unfindable = ${missingCount}/20.`);
+          const missingChunkCount = activeData.facts.filter(f => f.chunk === "missing").length;
+          const selEngine = document.getElementById("aiEngineSelect") ? document.getElementById("aiEngineSelect").value : "client";
+          const hasSemanticDrift = (window.activeSemanticProbe && window.activeSemanticProbe !== "none");
+          const semanticDriftCount = (selEngine === "bedrock" && hasSemanticDrift) ? 1 : 0;
+          const totalUnfindable = missingChunkCount + semanticDriftCount;
+          appendLog(`[VECTOR PROBE] Hybrid retrieval: negation failures = 0/20 (rescued via structured filter); unretrievable facts = ${missingChunkCount}${semanticDriftCount > 0 ? ' (F04 vanished) + 1 contradicted query (' + getActiveProbeFactId() + ')' : ''}. Scoreboard Unfindable = ${totalUnfindable}/20.`);
         }
       } else {
         resBox.innerHTML = `
@@ -1213,16 +1221,20 @@
           else if (window.activeSemanticProbe === "f18_sha") probeDesc = "F18 (Commit #39a82f8 doc vs #39a82f9 claim — commit SHA drift)";
 
           appendLog("----------------------------------------------------------------------------------------------------");
-          appendLog("[AI JUDGE SENSITIVITY CHECK: SEMANTIC CONTRADICTION DETECTED]");
-          appendLog(`• Caught: Claude Sonnet 4.6 detected semantic contradiction on active probe: ${probeDesc}.`);
-          appendLog("  Engine Comparison: Structural Rule Engine evaluates claim as structurally present/stored in DB; Bedrock AI Judge validates semantic meaning and catches contradiction.");
-          appendLog("  Page-1 Scoreboard Adjustment: Contradicted fact counted as 1 Missing ground-truth + 1 Extra unsupported claim (Missing: 2/20, Extra: 2/14, Unfindable: 2/20).");
+          appendLog("[AI JUDGE SENSITIVITY CHECK: LIVE ACTIVE PROBE]");
+          appendLog(`• Active Live Probe: Claude Sonnet 4.6 detected semantic contradiction on: ${probeDesc}.`);
+          appendLog("  Scoreboard Adjustment (Page-1 Rule): Contradicted fact counted as 1 Missing ground-truth + 1 Extra unsupported claim (Missing: 2/20, Extra: 2/14, Unfindable: 2/20).");
           appendLog("----------------------------------------------------------------------------------------------------");
-          appendLog("[BEDROCK AI JUDGE SENSITIVITY BENCHMARK: 4 ADVERSARIAL PROBES TESTED]");
-          appendLog("  1. SCALAR PROBE (F09: $5.00 doc vs $50.00 claim)       ➔ [CAUGHT: SCALAR CONTRADICTION ✗] (10x bound deviation)");
-          appendLog("  2. NEGATION PROBE (F02: 'NO in us-east-1' vs 'deployed') ➔ [CAUGHT: NEGATION INVERSION ✗] (Policy boundary violation)");
-          appendLog("  3. COUNT PROBE (F14: 48 CI checks vs 40 checks)         ➔ [CAUGHT: COUNT MISMATCH ✗] (Assertion threshold drift)");
-          appendLog("  4. COMMIT SHA PROBE (F18: #39a82f8 vs #39a82f9)         ➔ [CAUGHT: SHA DRIFT ✗] (Release immutability broken)");
+          appendLog("[OFFLINE DEMO BENCHMARK SUITE: 4/4 DEMO PROBES (RUN SEPARATELY FROM LIVE MATRIX)]");
+          appendLog("  (Illustrative demo test suite on hand-picked probes; not a production statistical accuracy metric)");
+          appendLog("  1. SCALAR PROBE (F09: $5.00 doc vs $50.00 claim)       ➔ [CAUGHT BY BEDROCK: 10x deviation]");
+          appendLog("  2. NEGATION PROBE (F02: 'NO in us-east-1' vs 'deployed') ➔ [CAUGHT BY BEDROCK: Polarity flip]");
+          appendLog("  3. COUNT PROBE (F14: 48 CI checks vs 40 checks)         ➔ [CAUGHT BY BEDROCK: Threshold drift]");
+          appendLog("  4. COMMIT SHA PROBE (F18: #39a82f8 vs #39a82f9)         ➔ [CAUGHT BY BEDROCK: SHA mutation]");
+          appendLog("----------------------------------------------------------------------------------------------------");
+          appendLog("[ENGINE CAPABILITY BREAKDOWN: DETERMINISTIC RULES VS AI JUDGE]");
+          appendLog("  • Count (F14) & SHA (F18): A deterministic field/regex diff ($0.00) can catch exact numeric/hash changes without LLM inference.");
+          appendLog("  • Negation (F02) & Semantic Drift (F09): AI Judge's unique value. Continuous vector space loses negation ('NOT'); LLM interprets semantic meaning and logical polarity.");
           const unperturbedCleanCount = 20 - (f04Missing ? 1 : 0) - 1;
           appendLog(`• Clean Facts Check: Verified ${unperturbedCleanCount} unperturbed/paraphrased facts as [SUPPORTED] (0 false alarms).`);
         } else {
@@ -1241,7 +1253,11 @@
         if (badge) badge.innerHTML = "Engine: <strong style='color:#059669;'>Client Hybrid Rule Engine ($0.00, In-Browser)</strong>";
         appendLog("[CLIENT ENGINE] Executing instant client hybrid rule engine across 20 architectural invariants ($0.00)...");
         if (window.activeSemanticProbe !== "none") {
-          appendLog("[CLIENT ENGINE BLINDSPOT] Structural Rule Engine evaluates 20 facts: All facts are structurally stored in DB (structural parser does not inspect deep semantic bounds; F09 marked Grounded). Select 'AWS Bedrock Claude Sonnet 4.6' to evaluate semantic truth bounds.");
+          const pFact = getActiveProbeFactId();
+          appendLog(`[CLIENT ENGINE EVALUATION ON ${pFact}] Structural presence check: Fact is structurally stored in DB with valid graph edge.`);
+          appendLog(`• Structural Parser Verdict: Marked [✓ Grounded] (Passes presence test; structural parser does not inspect semantic context).`);
+          appendLog(`• Rule vs AI Judge note: Simple field diffs could catch exact SHA/counts without LLM, but negation & rephrasing require Bedrock AI Judge.`);
+          appendLog(`• Select 'AWS Bedrock Claude Sonnet 4.6' to evaluate semantic truth bounds.`);
         }
         appendLog("[AUDIT COMPLETE] Client Hybrid Rule Engine: 20 facts compared, 13 edges checked. Ground-truth invariants cross-referenced against Vector and Graph stores.");
       }
