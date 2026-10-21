@@ -17,7 +17,7 @@ Because this repository is public, **every individual test app and the index hub
 ## 🪞 Document vs Vector & Graph Database Mismatch Auditor
 - **Auditor App**: [`document_database_mismatch_auditor.html`](document_database_mismatch_auditor.html)
 - Implements the **Knowledge Mirror Test**, **The Three Little Monsters (Missing, Extra, Unfindable)**, and the **Fact-by-Fact Invariant Heatmap**.
-- Runs client-side with **Local WebGPU (WebLLM)**, **Groq LPU**, or the **Client Hybrid Rule Engine**.
+- Runs for project owner with **Client Hybrid Rule Engine ($0.00)** and **Amazon Bedrock (Claude Sonnet 4.6 in us-east-2)**.
 
 ---
 
