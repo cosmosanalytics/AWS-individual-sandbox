@@ -1177,7 +1177,7 @@
           tag: "[✓ TIMEOUT HANDLED]",
           color: "#059669",
           result: (liveAwsData && liveAwsData.execution_id)
-            ? `HTTP 200 OK • <a href="https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${(liveAwsData.sfn_execution_arn || '').replace(/966273137102/g, '************')}" target="_blank" style="color:#0284C7;font-weight:700;">${liveAwsData.execution_id} ↗</a> (Live SFN in us-east-2) • Handled: States.Timeout trips circuit breaker & DLQ (0 DB writes)`
+            ? `HTTP 200 OK • <a href="https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${liveAwsData.sfn_execution_arn}" target="_blank" style="color:#0284C7;font-weight:700;">${liveAwsData.execution_id} ↗</a> (Live SFN in us-east-2) • Handled: States.Timeout trips circuit breaker & DLQ (0 DB writes)`
             : `HTTP 200 OK • ~[Session Invariant Stub: ${dynSfnId}] • Handled: Injected States.Timeout trips circuit breaker & DLQ (0 DB writes)`
         },
         {

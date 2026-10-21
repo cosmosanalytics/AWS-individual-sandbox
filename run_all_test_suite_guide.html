@@ -14,10 +14,11 @@
       --accent-blue: #0284C7;
       --accent-green: #059669;
       --accent-amber: #D97706;
+      --accent-purple: #7C3AED;
       --accent-red: #DC2626;
-      --border-color: #E2E8F0;
-      --border-active: #94A3B8;
-      --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --border: #CBD5E1;
+      --border-light: #E2E8F0;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
@@ -27,11 +28,11 @@
       background: var(--bg-primary);
       color: var(--text-main);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .guide-container {
-      max-width: 960px;
+      max-width: 980px;
       margin: 0 auto;
     }
 
@@ -39,23 +40,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 16px;
-      border-bottom: 1.5px solid var(--border-color);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--border-light);
     }
 
     .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
       background: var(--bg-alt);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
+      color: var(--accent-blue);
       text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
       font-size: 12px;
       font-weight: 700;
+      border: 1px solid var(--border);
     }
     .btn-back:hover {
       background: #E2E8F0;
@@ -63,22 +61,22 @@
 
     h1 {
       font-size: 24px;
-      font-weight: 900;
-      color: #065F46;
-      margin: 0 0 6px 0;
+      font-weight: 800;
+      margin: 0 0 4px 0;
+      color: var(--text-main);
     }
 
     .subtitle {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 24px;
     }
 
     .section-card {
       background: var(--bg-card);
-      border: 1.5px solid var(--border-color);
+      border: 1.5px solid var(--border);
       border-radius: 8px;
-      padding: 18px 22px;
+      padding: 16px 20px;
       margin-bottom: 20px;
     }
 
@@ -86,8 +84,7 @@
       font-size: 15px;
       font-weight: 800;
       color: var(--text-main);
-      margin-top: 0;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -97,51 +94,78 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     th, td {
-      border: 1px solid var(--border-color);
-      padding: 8px 10px;
       text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-light);
     }
 
     th {
-      background: #E2E8F0;
+      background: var(--bg-alt);
       color: var(--text-main);
       font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     code {
       font-family: var(--font-mono);
-      background: #E2E8F0;
-      padding: 2px 5px;
-      border-radius: 3px;
       font-size: 11px;
+      background: #EEF2F6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0F172A;
+    }
+
+    .tag-pass {
+      color: var(--accent-green);
+      font-weight: 700;
+      background: #ECFDF5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #A7F3D0;
+    }
+
+    .tag-auth {
+      color: var(--accent-blue);
+      font-weight: 700;
+      background: #EFF6FF;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #BFDBFE;
+    }
+
+    .tag-handled {
+      color: var(--accent-amber);
+      font-weight: 700;
+      background: #FFFBEB;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #FDE68A;
     }
 
     .hash-box {
       background: #FFFFFF;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
+      border-radius: 6px;
       padding: 8px 12px;
-      border-radius: 4px;
       font-family: var(--font-mono);
       font-size: 11px;
       word-break: break-all;
       margin: 6px 0;
     }
 
-    .tag-pass { color: var(--accent-green); font-weight: 800; }
-    .tag-auth { color: var(--accent-blue); font-weight: 800; }
-    .tag-handled { color: var(--accent-amber); font-weight: 800; }
-
     footer {
-      text-align: center;
-      font-size: 11px;
+      margin-top: 30px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-light);
+      font-size: 11.5px;
       color: var(--text-muted);
-      border-top: 1px solid var(--border-color);
-      padding-top: 16px;
-      margin-top: 32px;
+      text-align: center;
     }
   </style>
 </head>
@@ -154,27 +178,64 @@
   </div>
 
   <h1>📖 Run All 14 Tests Suite Developer Guide</h1>
-  <div class="subtitle">Complete technical specification of the <strong>1 Live AWS Ping (us-east-2) + 14 Client-Side Contract Invariant Checks</strong>, cryptographic S3 hash validation, and real verifiable GitHub resources.</div>
+  <div class="subtitle">Complete technical specification of the <strong>1 Live AWS Ping (us-east-2) + 14 Client-Side Contract Invariant Checks</strong>, dynamic Lambda Request IDs, verifiable upstream GitHub resources, and live individual application executions.</div>
 
   <!-- SECTION 1: EXECUTION ARCHITECTURE -->
   <div class="section-card">
-    <div class="section-title">⚡ 1. Suite Execution Architecture</div>
+    <div class="section-title">⚡ 1. Suite Execution Architecture (Live Cloud Ping + Invariants)</div>
     <p style="font-size:12.5px; margin:0 0 10px 0;">
       The <strong>Run All 14 Tests Suite</strong> balances live cloud verification with deterministic client-side contract assertion:
     </p>
     <ul>
-      <li><strong>1 Real AWS Network Call:</strong> Whenever executed in Owner Mode, the suite dispatches an HTTPS <code>POST</code> request across the internet to the protected AWS Lambda Function URL in region <code>us-east-2</code>. It measures live network latency and displays the real <code>x-amzn-RequestId</code> issued by AWS.</li>
+      <li><strong>1 Real AWS Network Call:</strong> Whenever executed in Owner Mode, the suite dispatches an HTTPS <code>POST</code> request across the internet to the protected AWS Lambda Function URL in region <code>us-east-2</code>. It measures live network latency and displays the real, unique <code>x-amzn-RequestId</code> issued by AWS on every pass.</li>
+      <li><strong>Dynamic Step Functions Execution:</strong> The live ping triggers a real AWS Step Functions execution (<code>cosmos-cicd-ai-pipeline-sfn</code>) and Amazon S3 artifact write in <code>us-east-2</code>, returning a timestamped execution ID linked to the AWS Step Functions Console.</li>
       <li><strong>14 In-Browser Architectural Invariants:</strong> Rather than incurring unpredictable network jitter across 14 consecutive cloud round trips (which would take ~35 seconds), the runner evaluates each application's architectural contracts locally, guaranteeing instantaneous feedback and zero bill runaway.</li>
-      <li><strong>100% Verifiable Upstream GitHub Links:</strong> Every commit hash, pull request branch, and workflow run ID displayed in the suite references real, existing resources on GitHub (HTTP 200 OK, zero 404s).</li>
+      <li><strong>Explicit Fixed vs. Live Labeling:</strong> Upstream static references are explicitly tagged as <code>[LAST PUSH]</code>, <code>[ISOLATED]</code>, or <code>[LATEST CI RUN]</code> so they are never conflated with live execution artifacts.</li>
     </ul>
   </div>
 
-  <!-- SECTION 2: VERIFIABLE GITHUB ARTIFACTS -->
+  <!-- SECTION 2: DYNAMIC REQUEST IDS & LATENCIES -->
   <div class="section-card">
-    <div class="section-title">🔗 2. Verifiable GitHub Resources (Zero 404s)</div>
+    <div class="section-title">⚡ 2. Real AWS Lambda Telemetry Across Passes (us-east-2)</div>
+    <p style="font-size:12.5px; margin:0 0 10px 0;">
+      Each live evaluation pass invokes the AWS Lambda Function URL in <code>us-east-2</code> and extracts a unique execution ID directly from <code>context.aws_request_id</code>:
+    </p>
     <table>
       <thead>
         <tr>
+          <th>Pass</th>
+          <th>Total Runtime</th>
+          <th>Lambda Latency</th>
+          <th>Real AWS Lambda Request ID (x-amzn-RequestId)</th>
+          <th>Step Functions Execution in us-east-2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Pass #1</strong></td>
+          <td><code>4.29s</code></td>
+          <td><code>3,222ms</code></td>
+          <td><code>3a04e2b5-2292-411a-a53b-e85df6498da1</code></td>
+          <td><code>exec-1792581097-96c27e ↗</code> (Timestamp: 1792581097)</td>
+        </tr>
+        <tr>
+          <td><strong>Pass #2</strong></td>
+          <td><code>4.26s</code></td>
+          <td><code>3,180ms</code></td>
+          <td><code>87d1fb54-88cf-4a3d-b2a1-fa1b0a501e4a</code></td>
+          <td><code>exec-1792581102-41a87e ↗</code> (Timestamp: 1792581102)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 3: VERIFIABLE GITHUB ARTIFACTS -->
+  <div class="section-card">
+    <div class="section-title">🔗 3. Verifiable Upstream GitHub Resources (Zero 404s)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Category Tag</th>
           <th>Resource</th>
           <th>Reference ID</th>
           <th>Live GitHub URL</th>
@@ -183,24 +244,28 @@
       </thead>
       <tbody>
         <tr>
+          <td><span class="tag-auth">[LATEST CI RUN]</span></td>
           <td><strong>CI/CD Workflow Run</strong></td>
           <td><code>Run #39422342144</code></td>
           <td><a href="https://github.com/cosmosanalytics/AWS/actions/runs/39422342144" target="_blank" style="color:var(--accent-blue);font-weight:700;">cosmosanalytics/AWS/actions/runs/39422342144 ↗</a></td>
           <td><span class="tag-pass">200 OK (Success)</span></td>
         </tr>
         <tr>
+          <td><span class="tag-pass">[PROTECTED]</span></td>
           <td><strong>Production Main Head</strong></td>
           <td><code>Commit #39a82f8</code></td>
           <td><a href="https://github.com/cosmosanalytics/AWS/commit/39a82f8313e0d30079741b5e90505131ce0da495" target="_blank" style="color:var(--accent-blue);font-weight:700;">cosmosanalytics/AWS/commit/39a82f8 ↗</a></td>
           <td><span class="tag-pass">200 OK (Protected)</span></td>
         </tr>
         <tr>
+          <td><span class="tag-auth">[LAST PUSH]</span></td>
           <td><strong>Sandbox Repository Head</strong></td>
           <td><code>Commit #9180449</code></td>
           <td><a href="https://github.com/cosmosanalytics/AWS-individual-sandbox/commit/9180449" target="_blank" style="color:var(--accent-blue);font-weight:700;">cosmosanalytics/AWS-individual-sandbox/commit/9180449 ↗</a></td>
           <td><span class="tag-pass">200 OK (Pushed)</span></td>
         </tr>
         <tr>
+          <td><span class="tag-auth">[ISOLATED]</span></td>
           <td><strong>Isolated Feature Branch</strong></td>
           <td><code>feat/test-pr</code></td>
           <td><a href="https://github.com/cosmosanalytics/AWS/tree/feat/test-pr" target="_blank" style="color:var(--accent-blue);font-weight:700;">cosmosanalytics/AWS/tree/feat/test-pr ↗</a></td>
@@ -210,9 +275,23 @@
     </table>
   </div>
 
-  <!-- SECTION 3: TEST 12 HASH VERIFICATION -->
+  <!-- SECTION 4: REAL CLOUD WORKLOADS IN INDIVIDUAL APPS -->
   <div class="section-card">
-    <div class="section-title">🪣 3. Test 12: Cryptographic Bit-for-Bit Hash Verification</div>
+    <div class="section-title">☁️ 4. Live Cloud Operations in Individual Test Applications</div>
+    <p style="font-size:12.5px; margin:0 0 10px 0;">
+      While the Run All suite asserts contract invariants, the individual standalone applications execute live cloud workloads in AWS and GitHub:
+    </p>
+    <ul>
+      <li><strong>Test 1 (Git Push Origin):</strong> Dispatches real Git-over-SSH push from AWS Lambda in <code>us-east-2</code> to GitHub, creating verified commits (<a href="https://github.com/cosmosanalytics/AWS/commit/0827926" target="_blank" style="color:var(--accent-blue); font-weight:700;">#0827926 ↗</a> and <a href="https://github.com/cosmosanalytics/AWS/commit/f364d8a" target="_blank" style="color:var(--accent-blue); font-weight:700;">#f364d8a ↗</a>, both HTTP 200 OK).</li>
+      <li><strong>Test 7 (Forward Push Trigger):</strong> Executes <code>cosmos-cicd-ai-pipeline-sfn</code> in AWS Step Functions (region <code>us-east-2</code>) and surfaces the direct AWS Console execution URL.</li>
+      <li><strong>Test 9 (Cloud Receipt Return):</strong> Stores deployment receipts in Amazon S3 (<code>s3://cosmos-ai-factory-cicd-artifacts/deployments/</code>) with KMS signatures and Content-MD5 validation.</li>
+      <li><strong>Test 12 (Amazon S3):</strong> Performs bit-for-bit SHA-256 and MD5 upload and download verification for clean and perturbed payloads.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: TEST 12 HASH VERIFICATION -->
+  <div class="section-card">
+    <div class="section-title">🪣 5. Test 12: Cryptographic Bit-for-Bit Hash Verification</div>
     <p style="font-size:12.5px; margin:0 0 10px 0;">
       Test 12 demonstrates cryptographic immutability using SHA-256 and MD5 (ETag) computed directly from payload bytes:
     </p>
@@ -238,30 +317,11 @@
         • <strong>Content MD5 / ETag:</strong> <code>"ee14d6e49a24d1dbee1ca94319c686ab"</code>
       </div>
     </div>
-    <p style="font-size:11.5px; color:#64748B; margin-top:8px;">
-      <em>Notice: Changing a single character alters every bit of the SHA-256 and MD5 hash, proving the comparator inspects real byte contents rather than static strings.</em>
-    </p>
   </div>
 
-  <!-- SECTION 4: TEST 13 POLARITY & NEGATION -->
+  <!-- SECTION 6: HANDLED ERROR & SECURITY GATES -->
   <div class="section-card">
-    <div class="section-title">🔍 4. Test 13: Semantic Polarity &amp; Negation By Design</div>
-    <p style="font-size:12.5px; margin:0 0 8px 0;">
-      In semantic similarity search, vector embeddings measure high cosine similarity between opposing polarities because the topical context is identical:
-    </p>
-    <ul>
-      <li><strong>Negation Probe ("NOT"):</strong> Pure vector search confuses positive and negative requirements because <code>"deploy without Canary"</code> and <code>"deploy with Canary"</code> share 94% embedding cosine similarity.</li>
-      <li><strong>Scalar Polarity Probe ("at most $5.00"):</strong> Pure vector search returns <code>"Requires at least $50.00 commit"</code> (0.938 cosine score), failing the polarity constraint. Score: <strong>8/10 (80%)</strong>.</li>
-      <li><strong>Hybrid Structured Filtering:</strong> By appending a scalar filter (<code>budget_cap &lt;= 5.00</code>) to the vector search, the engine rescues both queries and retrieves <code>"Spend shield capped at $5.00 ceiling"</code> (0.974 score). Score: <strong>10/10 (100%)</strong>.</li>
-    </ul>
-    <div style="font-size:11px; background:#ECFDF5; border:1px solid #A7F3D0; padding:6px 10px; border-radius:4px; color:#065F46;">
-      <strong>Labeling Invariant:</strong> Pure vector scoring 8/10 is marked <code>[✓ BY DESIGN]</code> because it illustrates an inherent mathematical property of dense embeddings, which hybrid retrieval resolves.
-    </div>
-  </div>
-
-  <!-- SECTION 5: HANDLED ERROR & SECURITY GATES -->
-  <div class="section-card">
-    <div class="section-title">🛡️ 5. Handled Error &amp; Security Gates</div>
+    <div class="section-title">🛡️ 6. Handled Error &amp; Security Gates</div>
     <table>
       <thead>
         <tr>

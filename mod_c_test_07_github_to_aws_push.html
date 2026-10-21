@@ -2799,6 +2799,7 @@
               const data = await resp.json();
               liveExecId = data.execution_id;
               liveSfnArn = (data.sfn_execution_arn || "").replace(/966273137102/g, "************");
+              window._liveSfnArnReal = data.sfn_execution_arn;
               liveReqId = data.lambda_request_id || resp.headers.get("x-amzn-RequestId");
               isRealAws = true;
             }
@@ -2811,7 +2812,8 @@
         const execId = liveExecId || ((window._t7RunCount === 1) ? "exec-sfn-78a2f4c9" : `exec-sfn-${hexSuffix}`);
         window._latestExecutionId = execId;
         const sfnArn = liveSfnArn || `arn:aws:states:us-east-2:************:execution:cosmos-cicd-ai-pipeline-sfn:${execId}`;
-        const consoleUrl = `https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${sfnArn}`;
+        const realConsoleArn = window._liveSfnArnReal || sfnArn.replace(/\*\*\*\*\*\*\*\*\*\*\*\*/g, "966273137102");
+        const consoleUrl = `https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${realConsoleArn}`;
 
         if (resEl) {
           resEl.innerHTML = `<div style="color:#059669; font-weight:700; margin-bottom:4px;">🟢 HTTP 200 OK • Step Functions Execution Started [Run #${window._t7RunCount}] (${execId})</div>
