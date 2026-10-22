@@ -30,7 +30,7 @@ Because this repository is public, **every individual test app and the index hub
 ### 2. Run All 14 Tests Suite (Run Twice)
 ![Run All 14 Tests Suite - Contract Invariant Verification Run Twice](owner_test_suite_live_run_twice.gif)
 
-- Combines **1 live AWS ping in `us-east-2`** (returning unique dynamic request IDs per pass) with **14 client-side architectural contract evaluations**.
+- Runs **14 real checks**, each producing pass or fail from live evidence: 3 auth-gate knocks (no key / bad key / owner key), 1 live `run_pipeline` execution (Step Functions, Bedrock, and S3 receipt), and GitHub branch/CI telemetry (11 live checks), plus 3 client-side invariant checks (SHA-256 perturbation, vector vs hybrid retrieval, knowledge-graph integrity). Failures show in red, and the summary reports the true pass count.
 - **100% Verifiable GitHub Artifacts**:
   - CI/CD Actions Run: [`Run #39422342144`](https://github.com/cosmosanalytics/AWS/actions/runs/39422342144) (HTTP 200 OK)
   - Production Main Head: [`Commit #5abc7f6`](https://github.com/cosmosanalytics/AWS/commit/5abc7f635ba77fe0d76b97aedac6cf2b79f6bbd7) (HTTP 200 OK, protected)

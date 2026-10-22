@@ -654,7 +654,7 @@
         🪞 Launch Document vs DB Mismatch Auditor ➔
       </a>
       <button id="btnRunAll14Suite" class="btn btn-green" onclick="runAll14TestSuite()" style="font-size:12px; padding:7px 18px; display:inline-flex; align-items:center; gap:8px; border-radius:24px; box-shadow:0 3px 12px rgba(16,185,129,0.35); font-weight:800; cursor:pointer;">
-        ⚡ Run All 14 Tests (Contract Invariant Checks)
+        ⚡ Run All 14 Tests (Real Live Checks)
       </button>
     </div>
 
@@ -676,7 +676,7 @@
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid #E2E8F0; padding-bottom:8px; margin-bottom:10px;">
         <div>
           <span style="font-size:13.5px; font-weight:900; color:#065F46;">🟢 14-App Contract Invariant Verification Suite</span>
-          <div style="font-size:10.5px; color:#64748B;">1 live AWS ping (us-east-2) + 14 client-side contract checks • Verifiable GitHub CI Run &amp; S3 hashes</div>
+          <div style="font-size:10.5px; color:#64748B;">11 live AWS &amp; GitHub checks + 3 client-side invariant checks • each test passes or fails on its own evidence</div>
         </div>
         <div style="display:flex; gap:8px; align-items:center;">
           <a href="run_all_test_suite_guide.html" target="_blank" class="btn btn-outline" style="font-size:10.5px; padding:3px 10px; text-decoration:none; color:#0284C7; border:1px solid #BAE6FD;">📖 Run All Guide ↗</a>
@@ -688,7 +688,7 @@
       <div id="suiteProgressWrap" style="margin-bottom:10px;">
         <div style="display:flex; justify-content:space-between; font-size:10px; font-family:var(--font-mono); color:#475569; margin-bottom:4px;">
           <span id="suiteProgressText">Initializing Invariant Verification...</span>
-          <span style="color:#0284C7; font-weight:700;">1 Live AWS Ping + 14 Contract Checks</span>
+          <span style="color:#0284C7; font-weight:700;">11 Live + 3 Client-Side Checks</span>
         </div>
         <div style="width:100%; height:5px; background:#E2E8F0; border-radius:3px; overflow:hidden;">
           <div id="suiteProgressBar" style="width:0%; height:100%; background:#0284C7; transition:width 0.08s ease;"></div>
@@ -1070,7 +1070,7 @@
   
     window.runAll14TestSuite = async function() {
       const isLocked = document.body.classList.contains("sandbox-locked");
-      if (isLocked) {
+      if (isLocked || !ownerPasscode) {
         alert("🔒 Locked: Owner Passcode required. Non-owner visitors cannot execute the full cloud test suite.");
         return;
       }
@@ -1081,201 +1081,239 @@
       const progressWrap = document.getElementById("suiteProgressWrap");
       const progressBar = document.getElementById("suiteProgressBar");
       const progressText = document.getElementById("suiteProgressText");
+      const runBtn = document.getElementById("btnRunAll14Suite");
 
       if (suiteBox) suiteBox.style.display = "block";
       if (resContainer) resContainer.innerHTML = "";
       if (progressWrap) progressWrap.style.display = "block";
-      if (progressBar) {
-        progressBar.style.width = "0%";
-        progressBar.style.background = "#0284C7";
-      }
+      if (progressBar) { progressBar.style.width = "0%"; progressBar.style.background = "#0284C7"; }
+      if (runBtn) runBtn.disabled = true;
 
       window._suiteRunIndex = (window._suiteRunIndex || 0) + 1;
       const runCount = window._suiteRunIndex;
       const curTime = new Date().toLocaleTimeString();
       const startTime = performance.now();
-
-      // Dynamically query current GitHub heads at run time
-      let dynProdHead = "5abc7f6";
-      let dynSandboxHead = "f1892af";
-      try {
-        const ghRes1 = await fetch("https://api.github.com/repos/cosmosanalytics/AWS/commits/main");
-        if (ghRes1.ok) {
-          const d1 = await ghRes1.json();
-          dynProdHead = d1.sha.substring(0, 7);
-        }
-      } catch(e) {}
-      try {
-        const ghRes2 = await fetch("https://api.github.com/repos/cosmosanalytics/AWS/commits/sandbox/main-sync");
-        if (ghRes2.ok) {
-          const d2 = await ghRes2.json();
-          dynSandboxHead = d2.sha.substring(0, 7);
-        }
-      } catch(e) {}
-
-      const REAL_ACTIONS_RUN_ID = 39422342144;
-      const REAL_PROD_COMMIT = dynProdHead;
-      const REAL_SANDBOX_COMMIT = dynSandboxHead;
-      const dynSfnId = "exec-sfn-" + ((runCount === 1) ? "78a2f4c9" : Math.random().toString(16).substring(2, 10));
+      const GH_REPO = "cosmosanalytics/AWS";
+      const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      const maskAcct = (s) => String(s ?? "").replace(/\d{12}/g, "************");
+      const ghLink = (path, label) => `<a href="https://github.com/${GH_REPO}/${path}" target="_blank" style="color:#0284C7;font-weight:700;">${esc(label)} ↗</a>`;
+      const setProgress = (label, pct) => {
+        if (progressText) progressText.textContent = `[Pass #${runCount} at ${curTime}] ${label}`;
+        if (progressBar) progressBar.style.width = `${pct}%`;
+      };
 
       if (pill) {
-        pill.style.background = "#EFF6FF";
-        pill.style.color = "#0284C7";
-        pill.style.borderColor = "#93C5FD";
-        pill.innerHTML = `⏳ Evaluating 1 Live AWS Ping + 14 Contract Checks [Pass #${runCount}]...`;
+        pill.style.background = "#EFF6FF"; pill.style.color = "#0284C7"; pill.style.borderColor = "#93C5FD";
+        pill.innerHTML = `⏳ Running 14 real checks [Pass #${runCount}]...`;
       }
 
-      // Check live AWS connection if owner passcode present
-      let liveReqId = null;
-      let liveLatency = null;
-      let liveAwsData = null;
-      if (ownerPasscode) {
+      const lambdaPost = async (body, key) => {
+        const headers = { "Content-Type": "application/json" };
+        if (key !== null) headers["X-Cosmos-Key"] = key;
+        const t0 = performance.now();
+        const resp = await fetch(LIVE_AWS_URL, { method: "POST", headers, body: JSON.stringify(body) });
+        let data = {};
+        try { data = await resp.json(); } catch (e) {}
+        return { status: resp.status, ok: resp.ok, data, ms: Math.round(performance.now() - t0), reqId: data.lambda_request_id || resp.headers.get("x-amzn-RequestId") || "" };
+      };
+      const ghGet = async (path) => {
         try {
-          const t0 = performance.now();
-          const resp = await fetch(LIVE_AWS_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "X-Cosmos-Key": ownerPasscode },
-            body: JSON.stringify({ action: "run_pipeline", prompt: `Suite Invariant Evaluation Pass #${runCount} in us-east-2` })
-          });
-          if (resp.ok) {
-            liveAwsData = await resp.json();
-            liveReqId = liveAwsData.lambda_request_id || resp.headers.get("x-amzn-RequestId");
-            liveLatency = Math.round(performance.now() - t0);
-          }
-        } catch(e) {}
-      }
+          const r = await fetch(`https://api.github.com/repos/${GH_REPO}/${path}`);
+          return r.ok ? await r.json() : null;
+        } catch (e) { return null; }
+      };
+      const sha256Hex = async (text) => {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+      };
 
-      const testDefs = [
-        {
-          id: 1,
-          name: "Test 1: git push sandbox/main-sync",
-          tag: "[✓ LAST PUSH]",
-          color: "#059669",
-          result: `Latest Sandbox Commit: <a href="https://github.com/cosmosanalytics/AWS/commit/${REAL_SANDBOX_COMMIT}" target="_blank" style="color:#0284C7;font-weight:700;">#${REAL_SANDBOX_COMMIT} ↗</a> (sandbox/main-sync); prod main <a href="https://github.com/cosmosanalytics/AWS/commit/${REAL_PROD_COMMIT}" target="_blank" style="color:#059669;">#${REAL_PROD_COMMIT} ↗</a> protected`
-        },
-        {
-          id: 2,
-          name: "Test 2: Pull Request Gate",
-          tag: "[✓ ISOLATED]",
-          color: "#059669",
-          result: `Known PR Branch: <a href="https://github.com/cosmosanalytics/AWS/tree/feat/test-pr" target="_blank" style="color:#0284C7;font-weight:700;">feat/test-pr ↗</a> (isolated); prod main untouched at #${REAL_PROD_COMMIT}`
-        },
-        {
-          id: 3,
-          name: "Test 3: Action Job 1 (AI AST Review)",
-          tag: "[✓ PASS]",
-          color: "#059669",
-          result: "Exit 0 • 24/24 AST syntax nodes matched for Claude Sonnet 4.6 in us-east-2"
-        },
-        {
-          id: 4,
-          name: "Test 4: Action Job 2 (Secret Shield & Auth)",
-          tag: "[✓ AUTH GATE]",
-          color: "#0284C7",
-          result: "Exit 1 (Expected Auth Reject) • 0 secret leaks; Unauthorized API key rejected (403)"
-        },
-        {
-          id: 5,
-          name: "Test 5: Action Job 3 (48/48 CI Matrix)",
-          tag: "[✓ LATEST CI RUN]",
-          color: "#0284C7",
-          result: `Latest CI Run: <a href="https://github.com/cosmosanalytics/AWS/actions/runs/${REAL_ACTIONS_RUN_ID}" target="_blank" style="color:#0284C7;font-weight:700;">#${REAL_ACTIONS_RUN_ID} ↗</a> (Exit 0) • 48/48 CI matrix checks all clear`
-        },
-        {
-          id: 6,
-          name: "Test 6: AWS 401 Pre-Flight Gate",
-          tag: "[✓ KNOCK GATE]",
-          color: "#0284C7",
-          result: "HTTP 200 OK • 3 Knocks (401 ➔ 401 ➔ 200) verified against AWS Lambda Function URL"
-        },
-        {
-          id: 7,
-          name: "Test 7: Bridge 1: Push (GitHub ➔ AWS)",
-          tag: "[✓ TIMEOUT HANDLED]",
-          color: "#059669",
-          result: (liveAwsData && liveAwsData.execution_id)
-            ? `HTTP 200 OK • <a href="https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${liveAwsData.sfn_execution_arn}" target="_blank" style="color:#0284C7;font-weight:700;">${liveAwsData.execution_id} ↗</a> (Live SFN in us-east-2) • Handled: States.Timeout trips circuit breaker & DLQ (0 DB writes)`
-            : `HTTP 200 OK • ~[Session Invariant Stub: ${dynSfnId}] • Handled: Injected States.Timeout trips circuit breaker & DLQ (0 DB writes)`
-        },
-        {
-          id: 8,
-          name: "Test 8: Bridge 2: Pull (AWS ➔ GitHub)",
-          tag: "[✓ PASS]",
-          color: "#059669",
-          result: `Exit 0 • Multi-branch sync verified: main #${REAL_PROD_COMMIT}, sandbox #${REAL_SANDBOX_COMMIT}`
-        },
-        {
-          id: 9,
-          name: "Test 9: Bridge 3: Return (AWS ➔ GitHub)",
-          tag: "[✓ KMS DENIAL HANDLED]",
-          color: "#059669",
-          result: "HTTP 200 OK (KMS signed receipt) • Handled: Injected KMS.AccessDenied halts PutObject (0 bytes)"
-        },
-        {
-          id: 10,
-          name: "Test 10: Owner Cost Shield & HMAC",
-          tag: "[✓ AUTH GATE]",
-          color: "#0284C7",
-          result: "HTTP 200 OK • Budget capped at $5.00 safe • Handled: Tampered webhook HMAC rejected (401)"
-        },
-        {
-          id: 11,
-          name: "Test 11: Amazon Bedrock Multi-Model Dispatch",
-          tag: "[✓ SONNET LIVE; HAIKU/NOVA SIMULATED]",
-          color: "#059669",
-          result: "Claude Sonnet 4.6 (🟢 Live Bedrock in us-east-2) • Haiku 3.5 & Nova Pro simulated routing"
-        },
-        {
-          id: 12,
-          name: "Test 12: Amazon S3 Bit-for-Bit Hash",
-          tag: "[✓ PASS]",
-          color: "#059669",
-          result: "Exit 0 • S3 SHA-256 match: 2f5f50ae…b1a759 (Clean) vs 6a62d890…9aba9 (Perturbed 1-char); bit-for-bit verified"
-        },
-        {
-          id: 13,
-          name: "Test 13: Vector DB & Semantic Search",
-          tag: "[✓ BY DESIGN]",
-          color: "#059669",
-          result: "Exit 0 • Pure vector 8/10 (fails negation & polarity by design) | Hybrid filter 10/10 (100% Grounded)"
-        },
-        {
-          id: 14,
-          name: "Test 14: Knowledge Graph Database",
-          tag: "[✓ CLEAN PASS]",
-          color: "#059669",
-          result: "Exit 0 • 12/12 Clean Relations Grounded (100% Precision) | Custom edge blocks invalid writes"
+      // ---- Gather live evidence (3 auth knocks, 1 pipeline run, GitHub API) ----
+      setProgress("Knocking on AWS Lambda auth gate (no key / bad key / owner key)...", 5);
+      const safe = async (fn) => { try { return await fn(); } catch (e) { return { error: e.message, status: 0, data: {} }; } };
+      const knockNoKey = await safe(() => lambdaPost({ action: "status" }, null));
+      const knockBadKey = await safe(() => lambdaPost({ action: "status" }, "invalid-probe-" + Date.now()));
+      const knockOwner = await safe(() => lambdaPost({ action: "status" }, ownerPasscode));
+
+      setProgress("Running live pipeline on AWS us-east-2 (Lambda ➔ Step Functions ➔ Bedrock ➔ S3)...", 15);
+      const pipe = await safe(() => lambdaPost({ action: "run_pipeline", prompt: `Suite Invariant Evaluation Pass #${runCount} in us-east-2` }, ownerPasscode));
+      const pd = pipe.data || {};
+      const gh = pd.github || knockOwner.data?.github || {};
+      const branches = Object.fromEntries((gh.branches || []).map((b) => [b.name, b.sha]));
+
+      setProgress("Querying GitHub API directly (main head + CI job results)...", 25);
+      const ghMain = await ghGet("commits/main");
+      const latestRun = gh.latest_workflow_run || null;
+      const ghJobs = latestRun ? await ghGet(`actions/runs/${latestRun.id}/jobs`) : null;
+      const findJob = (re) => (ghJobs?.jobs || []).find((j) => re.test(j.name));
+
+      const pass = (detail) => ({ status: "pass", detail });
+      const fail = (detail) => ({ status: "fail", detail });
+      const skip = (detail) => ({ status: "skip", detail });
+      const pipeErr = () => fail(`run_pipeline failed: HTTP ${pipe.status || "network error"} ${esc(pipe.data?.error || pipe.error || "")}`);
+
+      const jobCheck = (re, label) => {
+        if (!latestRun) return fail("No workflow run reported by Lambda telemetry");
+        const job = findJob(re);
+        const runLink = ghLink(`actions/runs/${latestRun.id}`, `Run #${latestRun.id}`);
+        if (job) {
+          return job.conclusion === "success"
+            ? pass(`${esc(job.name)}: <strong>success</strong> in ${runLink}`)
+            : fail(`${esc(job.name)}: <strong>${esc(job.conclusion || job.status)}</strong> in ${runLink}`);
         }
+        if (ghJobs) return fail(`No "${label}" job found in ${runLink}`);
+        return latestRun.conclusion === "success"
+          ? pass(`Run-level only (GitHub jobs API unavailable): ${runLink} concluded <strong>success</strong>`)
+          : fail(`${runLink} concluded <strong>${esc(latestRun.conclusion || latestRun.status)}</strong>`);
+      };
+
+      const tests = [
+        { id: 1, name: "Test 1: git push sandbox/main-sync", src: "LIVE", run: async () =>
+            branches["sandbox/main-sync"]
+              ? pass(`Canary branch present at ${ghLink(`commit/${branches["sandbox/main-sync"]}`, "#" + branches["sandbox/main-sync"])} (sandbox/main-sync)`)
+              : fail("Branch sandbox/main-sync not found in Lambda GitHub telemetry") },
+        { id: 2, name: "Test 2: Pull Request Gate", src: "LIVE", run: async () => {
+            const pr = branches["feat/test-pr"], main = branches["main"];
+            if (!pr) return fail("Branch feat/test-pr not found");
+            if (!main) return fail("Branch main not found");
+            return pr !== main
+              ? pass(`${ghLink("tree/feat/test-pr", "feat/test-pr")} #${esc(pr)} isolated from main #${esc(main)}`)
+              : fail(`feat/test-pr is identical to main (#${esc(main)}): nothing isolated`);
+          } },
+        { id: 3, name: "Test 3: Action Job 1 (AI AST Review)", src: "LIVE", run: async () => jobCheck(/AST|Code Review/i, "AST Review") },
+        { id: 4, name: "Test 4: Action Job 2 (Secret Shield)", src: "LIVE", run: async () => jobCheck(/Secret|Leak|DevSecOps/i, "Secret Shield") },
+        { id: 5, name: "Test 5: Action Job 3 (CI Matrix)", src: "LIVE", run: async () => jobCheck(/CI Test|Matrix|Checks/i, "CI Matrix") },
+        { id: 6, name: "Test 6: AWS 401 Pre-Flight Gate", src: "LIVE", run: async () => {
+            const codes = [knockNoKey.status, knockBadKey.status, knockOwner.status];
+            const txt = `no key ➔ ${codes[0]}, bad key ➔ ${codes[1]}, owner key ➔ ${codes[2]}`;
+            return codes[0] === 401 && codes[1] === 401 && codes[2] === 200 ? pass(`3 knocks: ${txt}`) : fail(`Expected 401/401/200, got ${txt}`);
+          } },
+        { id: 7, name: "Test 7: Bridge 1: Push (GitHub ➔ AWS)", src: "LIVE", run: async () => {
+            if (!pipe.ok) return pipeErr();
+            if (!pd.execution_id || !pd.sfn_execution_arn) return fail("Pipeline response missing execution_id / sfn_execution_arn");
+            const url = `https://us-east-2.console.aws.amazon.com/states/home?region=us-east-2#/executions/details/${encodeURIComponent(pd.sfn_execution_arn)}`;
+            return pass(`HTTP ${pipe.status} in ${pipe.ms}ms • SFN <a href="${url}" target="_blank" style="color:#0284C7;font-weight:700;">${esc(pd.execution_id)} ↗</a>`);
+          } },
+        { id: 8, name: "Test 8: Bridge 2: Pull (AWS ➔ GitHub)", src: "LIVE", run: async () => {
+            const lambdaSha = gh.latest_commit?.short_sha;
+            if (!lambdaSha) return fail("Lambda returned no GitHub telemetry");
+            if (!ghMain) return pass(`Lambda sees main #${esc(lambdaSha)} (direct GitHub API unavailable for cross-check)`);
+            const direct = ghMain.sha.substring(0, 7);
+            return direct === lambdaSha
+              ? pass(`Lambda telemetry matches GitHub API: main ${ghLink(`commit/${direct}`, "#" + direct)}`)
+              : fail(`Mismatch: Lambda sees #${esc(lambdaSha)}, GitHub API says #${esc(direct)}`);
+          } },
+        { id: 9, name: "Test 9: Bridge 3: Return (AWS ➔ S3 receipt)", src: "LIVE", run: async () => {
+            if (!pipe.ok) return pipeErr();
+            const uri = pd.s3_artifact_uri || "";
+            return uri && pd.execution_id && uri.includes(pd.execution_id)
+              ? pass(`Receipt written: <code>${esc(maskAcct(uri))}</code>`)
+              : fail(`S3 receipt URI missing or not tied to execution (${esc(maskAcct(uri)) || "none"})`);
+          } },
+        { id: 10, name: "Test 10: Owner Cost Shield", src: "LIVE", run: async () => {
+            const blocked = knockNoKey.status === 401 && knockNoKey.data?.locked === true && !knockNoKey.data?.execution_id;
+            const owner = knockOwner.status === 200 && knockOwner.data?.region;
+            if (!blocked) return fail(`Anonymous request not blocked (HTTP ${knockNoKey.status})`);
+            if (!owner) return fail(`Owner key not accepted (HTTP ${knockOwner.status})`);
+            return pass(`Anonymous ➔ 401 locked (no workload run) • Owner ➔ 200 (${esc(knockOwner.data.region)})`);
+          } },
+        { id: 11, name: "Test 11: Amazon Bedrock Dispatch", src: "LIVE", run: async () => {
+            if (!pipe.ok) return pipeErr();
+            const b = pd.bedrock || {};
+            if (!b.text) return fail(`No Bedrock completion returned ${esc(b.error || "")}`);
+            const models = (knockOwner.data?.available_models || []).length;
+            return pass(`${esc(b.model)} • ${b.latency_ms}ms • ${b.usage?.total_tokens ?? "?"} tokens • ${models} models enabled`);
+          } },
+        { id: 12, name: "Test 12: S3 Bit-for-Bit Hash", src: "CLIENT", run: async () => {
+            const clean = JSON.stringify({ execution_id: pd.execution_id || "offline", pass: runCount, ts: pd.timestamp || "" });
+            const perturbed = clean.slice(0, -2) + (clean.slice(-2, -1) === "x" ? "y" : "x") + clean.slice(-1);
+            const [h1, h2, h3] = await Promise.all([sha256Hex(clean), sha256Hex(perturbed), sha256Hex(clean)]);
+            if (h1 !== h3) return fail("Re-hash of identical bytes differs");
+            if (h1 === h2) return fail("1-char perturbation not detected");
+            return pass(`SHA-256 clean ${h1.slice(0, 8)}… = re-hash ${h3.slice(0, 8)}… • perturbed ${h2.slice(0, 8)}… differs`);
+          } },
+        { id: 13, name: "Test 13: Vector DB vs Hybrid Search", src: "CLIENT", run: async () => {
+            const docs = ["CI/CD DevSecOps secret scanning", "AWS Bedrock Sonnet 4.6 inference", "Git SSH Key Vault", "S&OP Forecasting Engine", "Amazon S3 artifact storage"];
+            const tok = (t) => t.toLowerCase().match(/[a-z0-9&]+/g) || [];
+            const cos = (q, d) => {
+              const qt = tok(q), dt = tok(d), terms = [...new Set([...qt, ...dt])];
+              const a = terms.map((t) => qt.filter((x) => x === t).length), b = terms.map((t) => dt.filter((x) => x === t).length);
+              const dot = a.reduce((s, v, i) => s + v * b[i], 0);
+              return dot / ((Math.hypot(...a) || 1) * (Math.hypot(...b) || 1));
+            };
+            const vectorTop = (q) => docs.map((d) => [d, cos(q, d)]).sort((x, y) => y[1] - x[1])[0][0];
+            const hybridTop = (q) => {
+              const neg = (q.toLowerCase().match(/\bnot\s+([a-z0-9&]+)/) || [])[1];
+              const pool = neg ? docs.filter((d) => !tok(d).includes(neg)) : docs;
+              return pool.map((d) => [d, cos(q.replace(/\bnot\s+\S+/i, ""), d)]).sort((x, y) => y[1] - x[1])[0][0];
+            };
+            const bench = [
+              ["bedrock sonnet inference", docs[1]], ["ssh key", docs[2]], ["forecasting", docs[3]],
+              ["secret scanning", docs[0]], ["s3 artifact", docs[4]],
+              ["artifact storage not s3", null]
+            ];
+            let v = 0, h = 0;
+            for (const [q, want] of bench) {
+              const okFor = (got) => want ? got === want : !tok(got).includes("s3");
+              if (okFor(vectorTop(q))) v++;
+              if (okFor(hybridTop(q))) h++;
+            }
+            return h === bench.length
+              ? pass(`Hybrid ${h}/${bench.length} grounded • Pure vector ${v}/${bench.length} (negation query)`)
+              : fail(`Hybrid only ${h}/${bench.length} • Pure vector ${v}/${bench.length}`);
+          } },
+        { id: 14, name: "Test 14: Knowledge Graph Invariants", src: "CLIENT", run: async () => {
+            const g = {
+              GitHubActions: ["AWSLambda", "GitHubRepo"], AWSLambda: ["BedrockSonnet", "StepFunctions", "VectorDB", "KnowledgeGraph"],
+              BedrockSonnet: ["AWSLambda", "VectorDB"], StepFunctions: ["S3Bucket"], S3Bucket: ["AWSLambda"],
+              GitHubRepo: ["GitHubActions"], LaptopGit: ["GitHubRepo"], VectorDB: [], KnowledgeGraph: []
+            };
+            const dangling = Object.entries(g).flatMap(([n, outs]) => outs.filter((o) => !(o in g)).map((o) => `${n}➔${o}`));
+            const bfs = (from, to) => {
+              const prev = { [from]: null }, q = [from];
+              while (q.length) { const n = q.shift(); if (n === to) break; for (const m of g[n] || []) if (!(m in prev)) { prev[m] = n; q.push(m); } }
+              if (!(to in prev)) return null;
+              const path = []; for (let n = to; n; n = prev[n]) path.unshift(n); return path;
+            };
+            const tryAddEdge = (from, to) => (from in g && to in g) ? (g[from].push(to), true) : false;
+            const path = bfs("LaptopGit", "S3Bucket");
+            const invalidBlocked = !tryAddEdge("AWSLambda", "UnknownNode");
+            const edges = Object.values(g).reduce((s, o) => s + o.length, 0);
+            if (dangling.length) return fail(`Dangling edges: ${esc(dangling.join(", "))}`);
+            if (!path) return fail("LaptopGit cannot reach S3Bucket");
+            if (!invalidBlocked) return fail("Write to unknown node was accepted");
+            return pass(`${edges} edges, 0 dangling • ${path.length - 1}-hop path ${esc(path.join("➔"))} • invalid write blocked`);
+          } }
       ];
 
-      for (let i = 0; i < testDefs.length; i++) {
-        const t = testDefs[i];
-        if (progressText) progressText.textContent = `[Pass #${runCount} at ${curTime}] Verifying Invariant ${i + 1}/14: ${t.name}...`;
-        if (progressBar) progressBar.style.width = `${Math.round(((i + 1) / 14) * 100)}%`;
-
+      const counts = { pass: 0, fail: 0, skip: 0 };
+      const style = { pass: ["#059669", "✓ PASS"], fail: ["#E11D48", "✗ FAIL"], skip: ["#D97706", "– SKIP"] };
+      for (let i = 0; i < tests.length; i++) {
+        const t = tests[i];
+        setProgress(`Check ${i + 1}/14: ${t.name}...`, 25 + Math.round(((i + 1) / tests.length) * 75));
+        let r;
+        try { r = await t.run(); } catch (e) { r = fail(`Check threw: ${esc(e.message)}`); }
+        counts[r.status]++;
+        const [color, label] = style[r.status];
         const item = document.createElement("div");
-        item.style.cssText = "background:#F8FAFC; border:1px solid #E2E8F0; border-radius:4px; padding:4px 8px; line-height:1.35;";
-        item.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1px;"><strong style="color:#0F172A; font-size:10.5px;">${t.name}</strong><span style='color:${t.color}; font-weight:800; font-size:9px;'>${t.tag}</span></div><span style='color:#64748B; font-size:9.5px;'>${t.result}</span>`;
+        item.dataset.testId = t.id;
+        item.dataset.status = r.status;
+        item.style.cssText = `background:#F8FAFC; border:1px solid ${r.status === "fail" ? "#FECDD3" : "#E2E8F0"}; border-radius:4px; padding:4px 8px; line-height:1.35;`;
+        item.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1px;"><strong style="color:#0F172A; font-size:10.5px;">${t.name}</strong><span style="color:${color}; font-weight:800; font-size:9.5px;">[${label} • ${t.src}]</span></div><div style="color:#334155; font-size:10px;">${r.detail}</div>`;
         if (resContainer) resContainer.appendChild(item);
-
-        // Async execution yield for active runner progression
-        await new Promise(r => setTimeout(r, 70));
       }
 
       const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
-      const liveAwsText = liveReqId ? ` • 🟢 Live AWS Proxy: us-east-2 (${liveLatency}ms, Req ID: <code>${liveReqId.slice(0, 13)}...</code>)` : "";
-      if (progressText) progressText.innerHTML = `<strong>Pass #${runCount} Complete (${elapsed}s)</strong>${liveAwsText} • 14/14 Invariants Satisfied (10 clean passes, 4 handled gates) • GitHub CI <a href="https://github.com/cosmosanalytics/AWS/actions/runs/${REAL_ACTIONS_RUN_ID}" target="_blank" style="color:#0284C7;font-weight:700;">#${REAL_ACTIONS_RUN_ID} ↗</a>`;
-      if (progressBar) {
-        progressBar.style.width = "100%";
-        progressBar.style.background = "#10B981";
-      }
-
+      const allPass = counts.fail === 0 && counts.skip === 0;
+      const reqTxt = pipe.reqId ? ` • Lambda Req ID: <code>${esc(pipe.reqId)}</code>` : "";
+      if (progressText) progressText.innerHTML = `<strong>Pass #${runCount} complete (${elapsed}s)</strong> • ${counts.pass} passed, ${counts.fail} failed${counts.skip ? `, ${counts.skip} skipped` : ""} • 11 live checks against AWS/GitHub + 3 client-side checks${reqTxt}`;
+      if (progressBar) { progressBar.style.width = "100%"; progressBar.style.background = allPass ? "#10B981" : "#E11D48"; }
       if (pill) {
-        pill.style.background = "#ECFDF5";
-        pill.style.color = "#059669";
-        pill.style.borderColor = "#A7F3D0";
-        pill.innerHTML = `🟢 Pass #${runCount}: 14 / 14 Invariants Satisfied (1 Live AWS Ping + 14 Checks)`;
+        pill.style.background = allPass ? "#ECFDF5" : "#FFF1F2";
+        pill.style.color = allPass ? "#059669" : "#BE123C";
+        pill.style.borderColor = allPass ? "#A7F3D0" : "#FECDD3";
+        pill.innerHTML = `${allPass ? "🟢" : "🔴"} Pass #${runCount}: ${counts.pass} / 14 checks passed`;
       }
+      if (runBtn) runBtn.disabled = false;
     };
 
 </script>
